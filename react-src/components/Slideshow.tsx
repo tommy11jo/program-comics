@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import Image from "next/image"
+import { useState, useEffect } from "react"
 
 interface SlideshowProps {
   folder: string
@@ -14,14 +13,27 @@ const Slideshow: React.FC<SlideshowProps> = ({
 }) => {
   const [current, setCurrent] = useState(0)
 
-  const firstSlide = () => setCurrent(0)
-  const nextSlide = () => setCurrent((current + 1) % size)
-  const prevSlide = () => setCurrent((current - 1 + size) % size)
-  const lastSlide = () => setCurrent(size - 1)
+  // workaround: next/image does lazy loading or pre-loading, but we need a load after FCP
+  const preloadImages = () => {
+    for (let i = 0; i < size; i++) {
+      const img = new Image()
+      img.src = `${folder}/${fprefix}${i}.png`
+    }
+  }
+
+  useEffect(() => {
+    preloadImages()
+  }, [])
+
+  const updateCurrentSlide = (newIndex: number) => setCurrent(newIndex)
+
+  const firstSlide = () => updateCurrentSlide(0)
+  const nextSlide = () => updateCurrentSlide((current + 1) % size)
+  const prevSlide = () => updateCurrentSlide((current - 1 + size) % size)
+  const lastSlide = () => updateCurrentSlide(size - 1)
 
   return (
     <div className="flex flex-col justify-center p-2 outline outline-slate-200 rounded">
-      {/* must insert all images into DOM, so Next includes them at build time */}
       <div className="flex flex-row gap-2 justify-center">
         <button onClick={firstSlide}>&lt;&lt; First</button>
         <button onClick={prevSlide}>&lt; Prev</button>
@@ -39,18 +51,13 @@ const Slideshow: React.FC<SlideshowProps> = ({
               display: current === index ? "block" : "none",
             }}
           >
-            <Image
-              src={`${folder}/${fprefix}${index}.png`}
-              alt={`Slide ${index}`}
-              sizes="500px"
-              fill
-              style={{
-                objectFit: "contain",
-              }}
-              // workaround: load before FCP
-              // what i really want is time based image loading, after FCP
-              priority
-            />
+            {
+              <img
+                src={`${folder}/${fprefix}${index}.png`}
+                alt={`Slide ${index}`}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
+            }
           </div>
         ))}
       </div>
