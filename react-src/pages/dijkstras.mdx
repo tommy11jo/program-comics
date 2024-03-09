@@ -1,13 +1,15 @@
 import Layout from "./concept/layout.tsx"
+import Slideshow from "../components/Slideshow.tsx"
 export const meta = {
   title: "Dijkstra's",
   date: "2024-03-08",
-  picturePath: "/dijkstra/slideshow/step0.png",
+  picturePath: "/graphics/dijkstra/slideshow/step0.png",
 }
 
 Hi there
 
 - **hi** there
 - **Hi it's me**
+  <Slideshow folder="/graphics/dijkstra/slideshow" size={10} />
 
 export default ({ children }) => <Layout meta={meta}>{children}</Layout>
