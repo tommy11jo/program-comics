@@ -5,6 +5,8 @@ interface LayoutProps {
     date: string
   }
 }
+// This is the layout for each post, or mdx file.
+// Limitation: Mdx is rendered client side, so `fs` cannot be used to read files in a slideshow folder
 export default function Layout({ children, ...props }: LayoutProps) {
   return (
     <div className="flex flex-col items-center min-h-screen p-4">
