@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@fontsource/roboto";
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -33,19 +35,62 @@ body {
 }
 
 /* Simple style */
+html,
+body {
+  font-family: "Roboto", "Arial", sans-serif;
+  line-height: 1.6;
+  font-size: 20px;
+}
 a:hover {
   text-decoration: underline;
 }
 
 a {
-  color: #87cefa;
+  color: #1e90ff;
   text-decoration: none;
+}
+ul,
+ol {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+li {
+  margin: 0.25rem 0;
 }
 
 button {
   @apply bg-slate-600 hover:bg-slate-500 text-white font-bold px-1 rounded;
 }
+button:disabled {
+  background-color: #333;
+  cursor: not-allowed;
+}
 
-html {
-  font-size: 20px;
+p {
+  margin-bottom: 1rem;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+h1 {
+  font-size: 2.25rem;
+}
+h2 {
+  font-size: 1.75rem;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+code {
+  color: #fcaf3e;
 }

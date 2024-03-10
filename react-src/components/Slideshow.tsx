@@ -1,4 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
+
+const UNFOCUS_COL = "#333"
+const FOCUS_COL = "#888"
 
 interface SlideshowProps {
   folder: string
@@ -12,6 +15,9 @@ const Slideshow: React.FC<SlideshowProps> = ({
   fprefix = "step",
 }) => {
   const [current, setCurrent] = useState(0)
+  const currentRef = useRef(current)
+  const [isFocused, setIsFocused] = useState(false)
+  const divRef = useRef<HTMLDivElement>(null)
 
   // workaround: next/image does lazy loading or pre-loading, but we need a load after FCP
   const preloadImages = () => {
@@ -25,29 +31,83 @@ const Slideshow: React.FC<SlideshowProps> = ({
     preloadImages()
   }, [])
 
-  const updateCurrentSlide = (newIndex: number) => setCurrent(newIndex)
+  const updateCurrentSlide = (newIndex: number) => {
+    currentRef.current = newIndex
+    setCurrent(newIndex)
+  }
 
   const firstSlide = () => updateCurrentSlide(0)
-  const nextSlide = () => updateCurrentSlide((current + 1) % size)
-  const prevSlide = () => updateCurrentSlide((current - 1 + size) % size)
+  const nextSlide = () => updateCurrentSlide((currentRef.current + 1) % size)
+  const prevSlide = () =>
+    updateCurrentSlide((currentRef.current - 1 + size) % size)
   const lastSlide = () => updateCurrentSlide(size - 1)
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === "ArrowRight") {
+      nextSlide()
+    } else if (e.key === "ArrowLeft") {
+      prevSlide()
+    }
+  }, [])
+  const handleClick = useCallback(
+    (e: MouseEvent) => {
+      if (divRef.current && divRef.current.contains(e.target as Node)) {
+        if (!isFocused) {
+          divRef.current.style.outline = `2px solid ${FOCUS_COL}`
+          document.addEventListener("keydown", handleKeyDown)
+          setIsFocused(true)
+        }
+      } else {
+        if (isFocused) {
+          if (divRef.current) {
+            divRef.current.style.outline = `1px solid ${UNFOCUS_COL}`
+          }
+          document.removeEventListener("keydown", handleKeyDown)
+          setIsFocused(false)
+        }
+      }
+    },
+    [isFocused, handleKeyDown]
+  )
+  useEffect(() => {
+    document.addEventListener("click", handleClick)
+
+    return () => {
+      document.removeEventListener("click", handleClick)
+    }
+  }, [handleClick])
 
   return (
-    <div className="flex flex-col justify-center p-2 outline outline-slate-200 rounded">
+    <div
+      ref={divRef}
+      className="flex flex-col justify-center p-2 my-4 outline rounded"
+      style={{
+        outline: `1px solid ${UNFOCUS_COL}`,
+      }}
+    >
+      <div className="flex flex-row justify-center">
+        <span>
+          Slide {current} of {size - 1}
+        </span>
+      </div>
       <div className="flex flex-row gap-2 justify-center">
         <button onClick={firstSlide}>&lt;&lt; First</button>
-        <button onClick={prevSlide}>&lt; Prev</button>
-        <button onClick={nextSlide}>Next &gt;</button>
+        <button onClick={prevSlide} disabled={current === 0}>
+          &lt; Prev
+        </button>
+        <button onClick={nextSlide} disabled={current === size - 1}>
+          Next &gt;
+        </button>
         <button onClick={lastSlide}>Last &gt;&gt;</button>
       </div>
+
       <div className="flex flex-col items-center justify-center">
         {Array.from({ length: size }, (_, index) => (
           <div
             key={index}
             style={{
               position: "relative",
-              width: "600px",
-              height: "400px",
+              //   width: "800px",
+              //   height: "450px",
               display: current === index ? "block" : "none",
             }}
           >

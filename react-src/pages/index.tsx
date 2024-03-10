@@ -44,6 +44,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const fnames = fs.readdirSync(pageDir)
   // only grabs the direct (not nested) .mdx file names
   const mdxFiles = fnames.filter((fn) => /\.mdx?$/.test(fn))
+  // Note: Install MDX ext for syntax highlighting in .mdx files: https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx
   const posts: ConceptPageMetadata[] = await Promise.all(
     mdxFiles.map(async (fname) => {
       const { meta } = (await import(`../pages/${fname}`)) as any

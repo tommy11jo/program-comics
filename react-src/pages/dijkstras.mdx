@@ -1,5 +1,9 @@
 import Layout from "./post/layout.tsx"
+import { Text, Row, Panel } from "../components/index.tsx"
+
 import Slideshow from "../components/Slideshow.tsx"
+
+import { LEFT, RIGHT } from "../lib/constants"
 export const meta = {
   title: "Dijkstra's",
   date: "2024-03-08",
@@ -10,6 +14,26 @@ Hi there
 
 - **hi** there
 - **Hi it's me**
-  <Slideshow folder="/graphics/dijkstra/slideshow" size={16} />
+
+<Slideshow folder="/graphics/dijkstra/slideshow" size={16} />
+
+<Row
+  comps={[
+    <Text
+      value={
+        <div>
+          the big {<Text value="red" color="red" inline={true} />} dog jumped
+        </div>
+      }
+      buff={1}
+      align={LEFT}
+    />,
+    <Text
+      value="Explore the start. The minimum distance from the start to start is 0. Explore the start. The minimum distance from the start to start is 0."
+      buff={1}
+      align={RIGHT}
+    />,
+  ]}
+/>
 
 export default ({ children }) => <Layout meta={meta}>{children}</Layout>
