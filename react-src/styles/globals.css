@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @import "@fontsource/roboto";
+@import "@fontsource/roboto-mono/400.css";
+@import "@fontsource/roboto-mono/700.css";
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -93,4 +95,5 @@ img {
 
 code {
   color: #fcaf3e;
+  font-family: "Roboto Mono", monospace;
 }

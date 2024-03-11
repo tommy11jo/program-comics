@@ -1,13 +1,15 @@
 import React, { ReactElement, ReactNode } from "react"
-import { VPosType, UP, DOWN } from "../lib/constants"
+import { VPosType, DirType, UP, DOWN, RIGHT, LEFT } from "../lib/constants"
 
 type SequenceProps = {
   text?: ReactElement | string
   comps: ReactNode[]
   gap?: number
   isColumn?: boolean
-  alignText?: VPosType
+
+  posText?: VPosType
   useOutline?: boolean
+  align?: string
   hmargin?: string
   vmargin?: string
   hpadding?: string
@@ -17,16 +19,20 @@ type SequenceProps = {
 const Sequence: React.FC<SequenceProps> = ({
   comps,
   text = "",
-  gap = 1,
+  gap = "0.3rem",
   isColumn = false,
-  alignText = UP,
-  hmargin = "0.5rem",
-  vmargin = "1rem",
-  hpadding = "0",
-  vpadding = "0.2rem",
+  posText = UP,
   useOutline = false,
+  align = isColumn ? "flex-start" : "flex-end",
+  hmargin = "0",
+  vmargin = "0",
+  hpadding = "0",
+  vpadding = "0",
 }) => {
   const outerStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: align,
     marginBottom: vmargin,
     marginTop: vmargin,
     marginLeft: hmargin,
@@ -41,13 +47,13 @@ const Sequence: React.FC<SequenceProps> = ({
   const sequenceStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: isColumn ? "column" : "row",
-    gap: `${gap}rem`,
-    flex: 1,
+    gap: gap,
+    // flex: 1,
     alignItems: "stretch",
   }
   return (
-    <div className="flex flex-col" style={outerStyle}>
-      {text !== "" && alignText == UP && text}
+    <div style={outerStyle}>
+      {text !== "" && posText == UP && text}
       <div style={sequenceStyle}>
         {comps.map((Comp, index) => (
           <div key={index} style={{ display: "flex", flex: 1 }}>
@@ -55,7 +61,7 @@ const Sequence: React.FC<SequenceProps> = ({
           </div>
         ))}
       </div>
-      {text !== "" && alignText == DOWN && text}
+      {text !== "" && posText == DOWN && text}
     </div>
   )
 }

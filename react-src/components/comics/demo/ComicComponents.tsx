@@ -15,19 +15,14 @@ const ComicComponents = () => {
   ]}
 />
 `
-  const panelCodeStr = `// Panels.tsx
-interface PanelWithTextProps {
-    text: ReactElement<typeof Text> | string
-    panel?: ReactElement<PanelType> | null
-    align?: VPosType // UP or DOWN
-    useOutline?: boolean
-}`
-  const seqPanel1 = (
+  const rhs = (
     <Panel
       useOutline={true}
       panel={
         <Text
           fontSize={"12px"}
+          hpadding={"0.2rem"}
+          vpadding={"0.2rem"}
           pos={LEFT}
           value={
             <div className="flex flex-1">
@@ -39,7 +34,7 @@ interface PanelWithTextProps {
     />
   )
 
-  const seqTwoCars = (
+  const twoCars = (
     <Row
       comps={[
         <Panel
@@ -56,7 +51,7 @@ interface PanelWithTextProps {
   const seqRHS = (
     <Col
       comps={[
-        seqTwoCars,
+        twoCars,
         <Panel
           text={
             <Text
@@ -73,27 +68,10 @@ interface PanelWithTextProps {
   const seqRow = (
     <Panel
       text={<Text value={"Example with four panels"} fontSize="30px" />}
-      panel={<Row comps={[seqPanel1, seqRHS]} />}
+      panel={<Row comps={[rhs, seqRHS]} />}
+      vmargin={"1rem"}
     />
   )
-  const panel2 = (
-    <Panel
-      useOutline={true}
-      text={
-        <Text
-          fontSize={"12px"}
-          pos={LEFT}
-          value={
-            <div>
-              <code>{panelCodeStr}</code>
-            </div>
-          }
-        />
-      }
-    />
-  )
-  //   return seqPanel2
   return seqRow
-  //   return <Sequence comps={[seqRow, panel2]} isColumn={true} />
 }
 export default ComicComponents

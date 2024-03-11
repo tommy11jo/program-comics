@@ -1,4 +1,4 @@
-import { Panel, Text, Row } from "../../index"
+import { Panel, Text, Row, Col } from "../../index"
 import { CENTER, DOWN, RIGHT, UP } from "../../../lib/constants"
 import { RED, RED_E } from "@/lib/colorConstants"
 
@@ -13,7 +13,7 @@ const DemoComic = () => {
         <Row
           text={
             <Text
-              value="Select a group of panels and annotate them. You can choose whether they each have an outline."
+              value="You can select a group of panels and annotate them. Use the boolean prop `useOutline` to declare whether each panel has an outline (default is false)."
               pos={CENTER}
               align={CENTER}
             />
@@ -31,7 +31,7 @@ const DemoComic = () => {
             <Panel
               text={
                 <Text
-                  value="You can choose the text's horizontal position, alignment, color, and font size."
+                  value="You can choose the text's horizontal position, alignment, color, and font size..."
                   color={RED_E}
                   fontSize="16px"
                   align={RIGHT}
@@ -44,7 +44,7 @@ const DemoComic = () => {
               text={
                 <Text
                   fontSize="14px"
-                  value="And the relative position of the text to the panel!"
+                  value="...and the relative position of the text to the panel."
                 />
               }
               posText={DOWN}

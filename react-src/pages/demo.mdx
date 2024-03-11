@@ -13,10 +13,11 @@ export const meta = {
 
 ## Welcome to this demo comic webpage!
 
-This comic webpage aims to explain how program comics and comic webpages like this one are created. You can view the source code for this file at `pages/demo.mdx`.
-It contains markdown, written directly in the file, and react components, imported from elsewhere in the codebase. Here's an example of a React component that uses a custom comic font and a column layout:
+This comic webpage aims to explain how program comics and comic webpages are created. You can view the source code for this file at `pages/demo.mdx`.
+It contains markdown, written directly in the file, and react components, imported from elsewhere in the codebase. Here's an example of a comic in a `Row`:
 
 <Row
+  vmargin={"0.5rem"}
   comps={[
     <Text
       value={
@@ -35,16 +36,18 @@ It contains markdown, written directly in the file, and react components, import
   ]}
 />
 <span>
-  There are five elements used to construct a comic: `Text`, `Image`, `Panel`,
-  `Row`, and `Column`. A comic is just a sequence of annotated pictures -- a
-  `Row` or a `Column`. These comics are not nearly as expressive as standard
-  comics but they serve our purposes. Let's see an example in action:
+  A program comic is some combination of five basic react components: `Text`,
+  `Image`, `Panel`, `Row`, and `Column`. These program comics are not nearly as
+  expressive as standard comics, they aren't as artistic or versatile. But they
+  are simple to author and useful for conveying concepts in a clean style. Let's
+  see an example in action:
 </span>
 
 <ComicComponents />
 
-Each element is a react component and offers parameters for customizing styling and layout.
-The goal of these components is to make it easy to write simple program comics, without having to touch any CSS or HTML.
+The goal of these five components is to make it easy to write simple program comics, without having to touch any CSS or HTML.
+Together, they can be viewed as a domain-specific language or component library for creating simple comics.
+Each element is a react component and offers props for customizing styling and layout.
 
 It helps to know a few constraints and the grammar of the program comic language.
 The language of a standard program comic is defined by a pretty simple
@@ -54,12 +57,12 @@ grammar:
 - `Row -> Text (Above) Row | Text (Below) Row | Panel | Panel + Row`
 - `Col -> Text (Above) Col | Text (Below) Col | Panel | Panel + Col`
 
-Elements in a Row will have the same height.
-Elements in a Column will have the same width.
-Following these constraints, all elements will expand to fit the space they need.
+Elements in a `Row` will have the same height.
+Elements in a `Column` will have the same width.
+By default, elements in a `Row` will flow `RIGHT` (causing any extra space to be on the `LEFT`) and elements in a `Column` will flow `UP` (causing any extra space to be `UP`)
 
-In practice, `Row`s and `Col`s are not recursively defined and instead accept a parameter that represents a list of components.
-Let's see another example and call attention to the styling and layout parameters:
+In practice, `Row`s and `Col`s are not recursively defined and instead accept a prop that represents a list of components.
+Let's see another example and call attention to the styling and layout props:
 
 <DemoComic />
 
@@ -115,15 +118,11 @@ Below is the code that creates the comic above. Yes I know I need a custom code 
   ```
 </span>
 
-You can create slideshows too:
-
-<span>
-  ```
-  <Slideshow folder="/graphics/demo/slideshow" size={2} />
-  ```
-</span>
+Also, you can create slideshows by providing a folder that contains a list of pictures.
 
 <Slideshow folder="/graphics/demo/slideshow" size={2} />
+
+Code: `<Slideshow folder="/graphics/demo/slideshow" size={2} />`
 
 These aren't really comics but they're useful when teaching programming. Note that
 the files in the slideshow folder must be named `step0.png`, `step1.png`, and so
