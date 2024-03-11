@@ -5,34 +5,36 @@ import Text from "./Text"
 // TODO: this type constraint isn't working, pass in <div> to panel
 
 type ReactImage = ReactElement<{ src: string; alt?: string }>
-type PanelType = ReactElement<PanelWithTextProps> | ReactImage
-interface PanelWithTextProps {
+type PanelType = ReactElement<PanelProps> | ReactImage
+interface PanelProps {
   text?: ReactElement<typeof Text> | string
   panel?: ReactElement<PanelType> | null
   align?: VPosType
-  posText?: VPosType
+  textPos?: VPosType
   useOutline?: boolean
   hmargin?: string
   vmargin?: string
   hpadding?: string
   vpadding?: string
+  grow?: boolean
 }
 
-export const Panel: React.FC<PanelWithTextProps> = ({
+const Panel: React.FC<PanelProps> = ({
   text = "",
   panel = null,
   align = UP,
-  posText = UP,
+  textPos = UP,
   hmargin = "0.3rem",
   vmargin = "0.3rem",
-  hpadding = "0.0rem",
-  vpadding = "0.0rem",
+  hpadding = "0",
+  vpadding = "0",
   useOutline = false,
+  grow = false,
 }) => {
   const outerStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-end",
+    justifyContent: "flex-start", // ugh
     marginBottom: vmargin,
     marginTop: vmargin,
     marginLeft: hmargin,
@@ -44,9 +46,10 @@ export const Panel: React.FC<PanelWithTextProps> = ({
   }
   let containerStyle: React.CSSProperties = {
     display: "flex",
+    // justifyContent: "flex-end",
     // flex: 1,
     flexShrink: 1,
-    // flexGrow: 1,
+    flexGrow: grow ? 1 : 0,
     flexDirection: align === DOWN ? "column-reverse" : "column",
     outline: useOutline ? "2px solid gray" : null,
     borderRadius: "0.25rem",
@@ -55,9 +58,9 @@ export const Panel: React.FC<PanelWithTextProps> = ({
 
   return (
     <div style={outerStyle}>
-      {text !== "" && posText === UP && text}
+      {text !== "" && textPos === UP && text}
       <div style={containerStyle}>{panel}</div>
-      {text !== "" && posText === DOWN && text}
+      {text !== "" && textPos === DOWN && text}
     </div>
   )
 }

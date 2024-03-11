@@ -2,6 +2,7 @@ import Layout from "./post/layout.tsx"
 import { Text, Row, Panel } from "../components/index.tsx"
 
 import Slideshow from "../components/Slideshow.tsx"
+import DijkstraBehaviorComic from "../components/comics/dijkstra/DijkstraBehaviorComic.tsx"
 
 import { LEFT, RIGHT } from "../lib/constants"
 export const meta = {
@@ -12,6 +13,10 @@ export const meta = {
 
 Dijkstra's algorithm is used to find the shortest paths between a source
 vertex and all other vertices in a graph with nonnegative weights. (Show picture and the previous sentence description in row layout.)
+
+By behavior, I mean how it works as a program. We'll cover it conceptually later.
+
+<DijkstraBehaviorComic />
 
 🌟 Recommendation: As you go through the slideshow, try to predict what will happen on the next slide before you view it. There's also a second slideshow with a different graph for extra practice. Then, try to implement it yourself before you see the code below.
 

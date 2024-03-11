@@ -70,6 +70,6 @@ export const Row: React.FC<Omit<SequenceProps, "isColumn">> = (props) => {
   return <Sequence {...props} isColumn={false} />
 }
 
-export const Col: React.FC<Omit<SequenceProps, "isColumn">> = (props) => {
+export const Column: React.FC<Omit<SequenceProps, "isColumn">> = (props) => {
   return <Sequence {...props} isColumn={true} />
 }

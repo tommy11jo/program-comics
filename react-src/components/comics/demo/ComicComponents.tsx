@@ -1,4 +1,4 @@
-import { Panel, Row, Col, Text } from "@/components"
+import { Panel, Row, Column, Text } from "@/components"
 import { LEFT, RIGHT } from "@/lib/constants"
 const ComicComponents = () => {
   const seqCodeStr = `// Sequence.tsx
@@ -49,7 +49,7 @@ const ComicComponents = () => {
     />
   )
   const seqRHS = (
-    <Col
+    <Column
       comps={[
         twoCars,
         <Panel

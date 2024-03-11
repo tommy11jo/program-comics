@@ -55,13 +55,13 @@ grammar:
 
 - `Panel -> Text (Above) Panel | Text (Below) Panel | Image | Text`
 - `Row -> Text (Above) Row | Text (Below) Row | Panel | Panel + Row`
-- `Col -> Text (Above) Col | Text (Below) Col | Panel | Panel + Col`
+- `Column -> Text (Above) Column | Text (Below) Column | Panel | Panel + Column`
 
 Elements in a `Row` will have the same height.
 Elements in a `Column` will have the same width.
 By default, elements in a `Row` will flow `RIGHT` (causing any extra space to be on the `LEFT`) and elements in a `Column` will flow `UP` (causing any extra space to be `UP`)
 
-In practice, `Row`s and `Col`s are not recursively defined and instead accept a prop that represents a list of components.
+In practice, `Row`s and `Column`s are not recursively defined and instead accept a prop that represents a list of components.
 Let's see another example and call attention to the styling and layout props:
 
 <DemoComic />

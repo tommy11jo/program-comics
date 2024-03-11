@@ -17,7 +17,7 @@ CIRCLE_COLORS = [
     MAROON_E,
 ]  # unique colors for <=6 distinct edges
 
-config.frame_size = (1100, 900)
+config.frame_size = (1000, 900)
 
 GRAPH1 = {
     0: [(1, 2), (2, 1)],
@@ -376,10 +376,10 @@ class ShortestPath(MovingCameraScene):
                 return distances[end], path
             return float("inf"), []
 
-        # file_suffix = 1
-        # graph, start, end = GRAPH1, START1, END1
-        file_suffix = 2
-        graph, start, end = GRAPH2, START2, END2
+        file_suffix = 1
+        graph, start, end = GRAPH1, START1, END1
+        # file_suffix = 2
+        # graph, start, end = GRAPH2, START2, END2
         self.set_file_suffix(file_suffix)
         vertices, edges = ShortestPath.convert_graph_to_digraph_format(graph)
         vgraph = WeightedDiGraph(vertices, edges, start=start, end=end)

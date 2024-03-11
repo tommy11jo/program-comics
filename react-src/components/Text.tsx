@@ -35,6 +35,7 @@ const Text = ({
   let elStyle: React.CSSProperties = {
     display: inline ? "inline-flex" : "flex",
     // flex: 1,
+    // flexGrow: 1, // this is new
     color: color,
     justifyContent:
       pos === RIGHT ? "flex-end" : pos === CENTER ? "center" : "flex-start",
@@ -44,7 +45,7 @@ const Text = ({
     fontStyle: italics ? "italic" : "normal",
     fontWeight: bold ? "bold" : "normal",
     whiteSpace: "pre-wrap", // ensure whitespace is preserved
-    textAlign: align === RIGHT ? "right" : pos === CENTER ? "center" : "left",
+    textAlign: align === RIGHT ? "right" : align === CENTER ? "center" : "left",
     marginBottom: vmargin,
     marginTop: vmargin,
     marginLeft: hmargin,

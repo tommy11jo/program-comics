@@ -1,4 +1,4 @@
-import { Panel, Text, Row, Col } from "../../index"
+import { Panel, Text, Row, Column } from "../../index"
 import { CENTER, DOWN, RIGHT, UP } from "../../../lib/constants"
 import { RED, RED_E } from "@/lib/colorConstants"
 
@@ -47,7 +47,7 @@ const DemoComic = () => {
                   value="...and the relative position of the text to the panel."
                 />
               }
-              posText={DOWN}
+              textPos={DOWN}
               useOutline={true}
               panel={<img src="/graphics/demo/car-stop-sign2.png" />}
             />,
