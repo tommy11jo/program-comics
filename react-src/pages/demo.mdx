@@ -71,18 +71,23 @@ Below is the code that creates the comic above. Yes I know I need a custom code 
 <span style={{ fontSize: "16px" }}>
   ```
   <Row
+    vpadding={"0.5rem"}
+    useOutline={true}
     text={<Text value="Styling and Layout" color={RED} fontSize="24px" />}
     comps={[
       <Row
         text={
           <Text
-            value="Select a group of panels and annotate them. You can choose whether to have an outline or not."
+            value="You can select a group of panels and annotate them. Use the boolean prop `useOutline` to declare whether each panel has an outline (default is false)."
             pos={CENTER}
             align={CENTER}
           />
         }
         comps={[
-          <Panel panel={<img src="/graphics/demo/car-stop-sign1.png" />} />,
+          <Panel
+            useOutline={true}
+            panel={<img src="/graphics/demo/car-stop-sign1.png" />}
+          />,
           <Panel panel={<img src="/graphics/demo/car-stop-sign2.png" />} />,
         ]}
       />,
@@ -91,7 +96,7 @@ Below is the code that creates the comic above. Yes I know I need a custom code 
           <Panel
             text={
               <Text
-                value="You can choose the text position, alignment, color, and font size."
+                value="You can choose the text's horizontal position, alignment, color, and font size..."
                 color={RED_E}
                 fontSize="16px"
                 align={RIGHT}
@@ -104,7 +109,7 @@ Below is the code that creates the comic above. Yes I know I need a custom code 
             text={
               <Text
                 fontSize="14px"
-                value="And it's position! It looks funny, but remember that the goal is to conform to a grid"
+                value="...and the relative position of the text to the panel."
               />
             }
             posText={DOWN}
@@ -118,14 +123,15 @@ Below is the code that creates the comic above. Yes I know I need a custom code 
   ```
 </span>
 
-Also, you can create slideshows by providing a folder that contains a list of pictures.
+Beyond comics and comic webpages, you can create program slideshows.
+A program slideshow is a sequence of pictures, where one is shown at a time, inspired by [python tutor](https://pythontutor.com/python-compiler.html).
 
 <Slideshow folder="/graphics/demo/slideshow" size={2} />
 
 Code: `<Slideshow folder="/graphics/demo/slideshow" size={2} />`
 
-These aren't really comics but they're useful when teaching programming. Note that
-the files in the slideshow folder must be named `step0.png`, `step1.png`, and so
+To create a slideshow, provide a folder that contains the list of pictures and the total number of pictures.
+Note that the files in the folder must be named `step0.png`, `step1.png`, and so
 on.
 
 The actual images in the comic can be created using [manim](https://github.com/ManimCommunity/manim), which is a version of the python library that 3blue1brown uses for math animation videos.
