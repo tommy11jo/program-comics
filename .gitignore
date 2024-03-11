@@ -1,1 +1,5 @@
 react-src/public/comics/*
+manim-src/pictures/
+manim-src/media/
+manim-src/env/
+manim-src/__pycache__/
