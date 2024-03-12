@@ -8,5 +8,11 @@ export type DirType = typeof UP | typeof DOWN | typeof RIGHT | typeof LEFT
 export type HAlignType = typeof RIGHT | typeof LEFT | typeof CENTER
 export type VAlignType = typeof UP | typeof DOWN | typeof CENTER
 
+export type PosType =
+  | typeof UP
+  | typeof DOWN
+  | typeof RIGHT
+  | typeof LEFT
+  | typeof CENTER
 export type HPosType = typeof RIGHT | typeof LEFT
 export type VPosType = typeof UP | typeof DOWN

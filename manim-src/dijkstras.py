@@ -5,7 +5,8 @@ from typing import Hashable, Tuple
 START_COLOR = GREEN
 END_COLOR = PURPLE_C
 MAIN_COLOR = GREEN
-MAIN_OPACITY = 0.3
+FOCUS_COLOR = RED
+MAIN_OPACITY = 0.4
 MIN_DIST_COLOR = RED
 BEST_SO_FAR_COLOR = BLUE_C
 CIRCLE_COLORS = [
@@ -17,7 +18,8 @@ CIRCLE_COLORS = [
     MAROON_E,
 ]  # unique colors for <=6 distinct edges
 
-config.frame_size = (1000, 900)
+# config.frame_size = (1000, 900)
+config.frame_size = (500, 450)
 
 GRAPH1 = {
     0: [(1, 2), (2, 1)],
@@ -31,7 +33,7 @@ GRAPH1 = {
 START1, END1 = 0, 6
 
 GRAPH2 = {
-    0: [(1, 7), (2, 1)],
+    0: [(1, 7), (2, 1), (4, 1)],
     1: [(6, 2)],
     2: [(3, 3), (4, 2)],
     3: [(5, 4)],
@@ -238,9 +240,11 @@ class WeightedDiGraph(DiGraph):
         dist_text = "∞" if dist == float("inf") else str(dist)
         prev_dist_text = "∞" if prev_dist == float("inf") else str(prev_dist)
         new_text = Text(
-            dist_text + "  ", color=BEST_SO_FAR_COLOR, font_size=self.label_font_size
+            dist_text + "  ", color=FOCUS_COLOR, font_size=self.label_font_size
         )
-        old_text = Text(prev_dist_text, font_size=self.label_font_size)
+        old_text = Text(
+            prev_dist_text, color=BEST_SO_FAR_COLOR, font_size=self.label_font_size
+        )
         new_text.next_to(old_text, LEFT, buff=0.2)
 
         text = VGroup(new_text, old_text)
@@ -256,12 +260,39 @@ class WeightedDiGraph(DiGraph):
         dist_update_unit = VGroup(text, cross_line, box)
         self.dist_labels[node] = dist_update_unit
 
-    def highlight_node(self, node, color=MAIN_COLOR, opacity=1.0):
+    def compare_dist_label(
+        self, node, dist, prev_dist, color=FOCUS_COLOR, opacity=MAIN_OPACITY
+    ):
+        dist_text = "∞" if dist == float("inf") else str(dist)
+        prev_dist_text = "∞" if prev_dist == float("inf") else str(prev_dist)
+        new_text = Text(
+            dist_text + " ≥ ", color=FOCUS_COLOR, font_size=self.label_font_size
+        )
+        old_text = Text(
+            prev_dist_text, color=BEST_SO_FAR_COLOR, font_size=self.label_font_size
+        )
+        new_text.next_to(old_text, LEFT, buff=0.2)
+
+        text = VGroup(new_text, old_text)
+        self.no_overlap_next_to(text, self.vertices[node], LEFT)
+
+        box = SurroundingRectangle(
+            text, color=color, buff=0.1, corner_radius=0.1, stroke_opacity=opacity
+        )
+
+        dist_update_unit = VGroup(text, box)
+        self.dist_labels[node] = dist_update_unit
+
+    def highlight_node(
+        self,
+        node,
+        color=MAIN_COLOR,
+        opacity=0.5,
+    ):
         dot = self.vertices[node]
         dot.set_color(color).set_opacity(opacity)
 
-    def highlight_edge(self, start, end, color=MAIN_COLOR, bold=False, faded=False):
-        opacity = 0.3 if faded else 1.0
+    def highlight_edge(self, start, end, color=FOCUS_COLOR, opacity=MAIN_OPACITY):
         edge = self.edges[(start, end)]
         edge.set_color(color).set_opacity(opacity)
 
@@ -320,7 +351,7 @@ class ShortestPath(MovingCameraScene):
                 cur_dist, cur_node = heapq.heappop(pq)
                 # step 1: show node being processed
                 vgraph.show_dist_label(cur_node, cur_dist)
-                vgraph.highlight_node(cur_node)
+                vgraph.highlight_node(cur_node, color=FOCUS_COLOR, opacity=1.0)
 
                 if cur_dist > distances[cur_node]:
                     continue
@@ -342,18 +373,21 @@ class ShortestPath(MovingCameraScene):
                         distances[neighbor] = distance
                         prev_node[neighbor] = cur_node
                         heapq.heappush(pq, (distance, neighbor))
-                        vgraph.highlight_edge(cur_node, neighbor)
-                        _highlight_edge_args_lst.append(
-                            (cur_node, neighbor, GREEN, True, True)
-                        )
+                        vgraph.highlight_edge(cur_node, neighbor, opacity=1.0)
                         vgraph.update_dist_label(
                             neighbor, distance, prev_neighbor_dist, next(circle_colors)
                         )
-                        _dist_label_args_lst.append(
-                            (neighbor, distance, BEST_SO_FAR_COLOR)
+                    else:
+                        vgraph.highlight_edge(cur_node, neighbor)
+                        vgraph.compare_dist_label(
+                            neighbor, distance, prev_neighbor_dist
                         )
+
+                    _highlight_edge_args_lst.append((cur_node, neighbor, GREEN))
+                    _dist_label_args_lst.append((neighbor, distance, BEST_SO_FAR_COLOR))
                 self.capture()
                 # Cleanup
+                vgraph.highlight_node(cur_node)
                 for args in _dist_label_args_lst:
                     vgraph.show_dist_label(*args)
                 for args in _highlight_edge_args_lst:
@@ -366,12 +400,14 @@ class ShortestPath(MovingCameraScene):
                     path.append(node)
                     prev = node  # used for tracking
                     node = prev_node[node]
-                    vgraph.highlight_node(prev, color=RED)
-                    vgraph.highlight_edge(node, prev, color=RED)
+                    vgraph.highlight_node(prev, color=FOCUS_COLOR, opacity=1.0)
+                    vgraph.highlight_edge(node, prev, color=FOCUS_COLOR, opacity=1.0)
                     self.capture()
+                    vgraph.highlight_node(prev, color=FOCUS_COLOR)
+                    vgraph.highlight_edge(node, prev, color=FOCUS_COLOR)
                 path.append(start)
                 path.reverse()
-                vgraph.highlight_node(node, color=RED)
+                vgraph.highlight_node(node, color=FOCUS_COLOR)
                 self.capture()
                 return distances[end], path
             return float("inf"), []

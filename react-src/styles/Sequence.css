@@ -1,0 +1,14 @@
+/* This file is necessary because we must set flex-dir dyanmically and tw cannot do that */
+.row {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 62rem) {
+  .row {
+    flex-direction: column;
+  }
+}

@@ -5,6 +5,7 @@ import { RIGHT, LEFT } from "../lib/constants.ts"
 import ComicComponents from "../components/comics/demo/ComicComponents.tsx"
 import { RED_E, RED } from "../lib/colorConstants.ts"
 import Slideshow from "../components/Slideshow.tsx"
+
 export const meta = {
   title: "Demo",
   date: "2024-03-08",
@@ -99,7 +100,7 @@ Below is the code that creates the comic above. Yes I know I need a custom code 
                 value="You can choose the text's horizontal position, alignment, color, and font size..."
                 color={RED_E}
                 fontSize="16px"
-                align={RIGHT}
+                textAlign={RIGHT}
               />
             }
             useOutline={true}

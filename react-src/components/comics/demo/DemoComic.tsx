@@ -1,21 +1,20 @@
-import { Panel, Text, Row, Column } from "../../index"
-import { CENTER, DOWN, RIGHT, UP } from "../../../lib/constants"
+import { resetConfig, setConfig } from "@/components/ConfigContext"
+import { Panel, Text, Row } from "../../index"
 import { RED, RED_E } from "@/lib/colorConstants"
 
 // Create comics in a separate file from the mdx in order to get IDE support for style/layout components like `TextNode`
 const DemoComic = () => {
+  setConfig("alignItems", "flex-end")
   const panel = (
     <Row
       vpadding={"0.5rem"}
-      useOutline={true}
-      text={<Text value="Styling and Layout" color={RED} fontSize="24px" />}
+      label={<Text value="Styling and Layout" color={RED} fontSize="24px" />}
       comps={[
         <Row
-          text={
+          label={
             <Text
               value="You can select a group of panels and annotate them. Use the boolean prop `useOutline` to declare whether each panel has an outline (default is false)."
-              pos={CENTER}
-              align={CENTER}
+              textAlign={"center"}
             />
           }
           comps={[
@@ -29,26 +28,25 @@ const DemoComic = () => {
         <Row
           comps={[
             <Panel
-              text={
+              useOutline={true}
+              label={
                 <Text
                   value="You can choose the text's horizontal position, alignment, color, and font size..."
                   color={RED_E}
                   fontSize="16px"
-                  align={RIGHT}
+                  textAlign={"right"}
                 />
               }
-              useOutline={true}
               panel={<img src="/graphics/demo/car-stop-sign1.png" />}
             />,
             <Panel
-              text={
+              useOutline={true}
+              label={
                 <Text
                   fontSize="14px"
                   value="...and the relative position of the text to the panel."
                 />
               }
-              textPos={DOWN}
-              useOutline={true}
               panel={<img src="/graphics/demo/car-stop-sign2.png" />}
             />,
           ]}
@@ -56,8 +54,8 @@ const DemoComic = () => {
       ]}
     />
   )
+  //   resetConfig()
   return panel
-  //   return <Row comps={[panel, panel]} />
 }
 
 export default DemoComic

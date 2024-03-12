@@ -1,5 +1,5 @@
 import { Panel, Row, Column, Text } from "@/components"
-import { LEFT, RIGHT } from "@/lib/constants"
+import { LEFT, RIGHT, UP } from "@/lib/constants"
 const ComicComponents = () => {
   const seqCodeStr = `// Sequence.tsx
 <Row
@@ -23,7 +23,6 @@ const ComicComponents = () => {
           fontSize={"12px"}
           hpadding={"0.2rem"}
           vpadding={"0.2rem"}
-          pos={LEFT}
           value={
             <div className="flex flex-1">
               <code>{seqCodeStr}</code>
@@ -53,7 +52,7 @@ const ComicComponents = () => {
       comps={[
         twoCars,
         <Panel
-          text={
+          label={
             <Text
               value={
                 "The code snippet to the left creates the two panels above. This entire example is made of three sequences. A horizontal sequence (the two cars) nested in a vertical sequence (the right half) nested in a horizontal sequence."
@@ -67,9 +66,9 @@ const ComicComponents = () => {
   )
   const seqRow = (
     <Panel
-      text={<Text value={"Example with four panels"} fontSize="30px" />}
-      panel={<Row comps={[rhs, seqRHS]} />}
       vmargin={"1rem"}
+      label={<Text value={"Example with four panels"} fontSize="30px" />}
+      panel={<Row comps={[rhs, seqRHS]} />}
     />
   )
   return seqRow

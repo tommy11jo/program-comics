@@ -1,15 +1,11 @@
 import React, { ReactElement, ReactNode } from "react"
-import { VPosType, DirType, UP, DOWN, RIGHT, LEFT } from "../lib/constants"
-
+import { useConfig } from "./ConfigContext"
 type SequenceProps = {
-  text?: ReactElement | string
   comps: ReactNode[]
+  label?: ReactElement | string
+  labelBelow?: ReactElement | string
   gap?: number
   isColumn?: boolean
-
-  posText?: VPosType
-  useOutline?: boolean
-  align?: string
   hmargin?: string
   vmargin?: string
   hpadding?: string
@@ -18,21 +14,20 @@ type SequenceProps = {
 
 const Sequence: React.FC<SequenceProps> = ({
   comps,
-  text = "",
+  label = "",
+  labelBelow = "",
   gap = "0.3rem",
   isColumn = false,
-  posText = UP,
-  useOutline = false,
-  align = isColumn ? "flex-start" : "flex-end",
   hmargin = "0",
   vmargin = "0",
   hpadding = "0",
   vpadding = "0",
 }) => {
+  const { alignItems } = useConfig()
   const outerStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: "column",
-    justifyContent: align,
+    justifyContent: "flex-start",
     marginBottom: vmargin,
     marginTop: vmargin,
     marginLeft: hmargin,
@@ -41,27 +36,24 @@ const Sequence: React.FC<SequenceProps> = ({
     paddingTop: vpadding,
     paddingLeft: hpadding,
     paddingRight: hpadding,
-    outline: useOutline ? "2px solid gray" : null,
-    borderRadius: "0.25rem",
   }
   const sequenceStyle: React.CSSProperties = {
     display: "flex",
-    flexDirection: isColumn ? "column" : "row",
+    // flexDirection: isColumn ? "column" : "row",
     gap: gap,
-    // flex: 1,
-    alignItems: "stretch",
+    alignItems: alignItems,
   }
   return (
     <div style={outerStyle}>
-      {text !== "" && posText == UP && text}
-      <div style={sequenceStyle}>
+      {label !== "" && label}
+      <div style={sequenceStyle} className={!isColumn ? "row" : "column"}>
         {comps.map((Comp, index) => (
           <div key={index} style={{ display: "flex", flex: 1 }}>
             {Comp}
           </div>
         ))}
       </div>
-      {text !== "" && posText == DOWN && text}
+      {labelBelow != "" && labelBelow}
     </div>
   )
 }

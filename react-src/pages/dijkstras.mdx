@@ -3,6 +3,9 @@ import { Text, Row, Panel } from "../components/index.tsx"
 
 import Slideshow from "../components/Slideshow.tsx"
 import DijkstraBehaviorComic from "../components/comics/dijkstra/DijkstraBehaviorComic.tsx"
+import DijkstraIntro from "../components/comics/dijkstra/DijkstraIntro.tsx"
+import DijkstraCode from "../components/comics/dijkstra/DijkstraCode.tsx"
+import { ConfigProvider } from "../components/ConfigContext.tsx"
 
 import { LEFT, RIGHT } from "../lib/constants"
 export const meta = {
@@ -11,14 +14,23 @@ export const meta = {
   picturePath: "/graphics/dijkstra/slideshow/step0.png",
 }
 
-Dijkstra's algorithm is used to find the shortest paths between a source
-vertex and all other vertices in a graph with nonnegative weights. (Show picture and the previous sentence description in row layout.)
+# Dijkstra's Snapshot
 
-By behavior, I mean how it works as a program. We'll cover it conceptually later.
+<DijkstraIntro />
+
+# Python Code
+
+🌟 I recommend trying to implement this yourself before looking at in detail. Continue on to the comic.
+
+<DijkstraCode />
+
+# Behavior Comic
 
 <DijkstraBehaviorComic />
 
-🌟 Recommendation: As you go through the slideshow, try to predict what will happen on the next slide before you view it. There's also a second slideshow with a different graph for extra practice. Then, try to implement it yourself before you see the code below.
+# Behavior Slideshow
+
+🌟 I recommend that you try to predict the state changes as you go through the slideshow. Use this understanding to try to implement the code yourself.
 
 <Slideshow folder="/graphics/dijkstra/slideshow" size={16} />
 
@@ -41,4 +53,6 @@ By behavior, I mean how it works as a program. We'll cover it conceptually later
   ]}
 />
 
-export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+export default ({ children }) => {
+  return <Layout meta={meta}>{children}</Layout>
+}
