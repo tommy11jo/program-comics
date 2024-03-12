@@ -10,7 +10,6 @@ interface PanelProps {
   labelBelow?: ReactElement<typeof Text> | string // label below the panel contents
   panel?: ReactElement<PanelType> | null
   useOutline?: boolean
-  justifyPanelContent?: "flex-start" | "center" | "flex-end" // position of `panel` along horizontal axis
   hmargin?: string
   vmargin?: string
   hpadding?: string
@@ -22,7 +21,6 @@ const Panel: React.FC<PanelProps> = ({
   labelBelow = "",
   panel = null,
   useOutline = false,
-  justifyPanelContent = "flex-start",
   hmargin = "0.3rem",
   vmargin = "0.3rem",
   hpadding = "0",
@@ -45,7 +43,6 @@ const Panel: React.FC<PanelProps> = ({
   let containerStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: "column",
-    alignItems: justifyPanelContent,
     flexShrink: 1,
     flexGrow: 1,
     outline: useOutline ? "2px solid gray" : null,
@@ -56,11 +53,8 @@ const Panel: React.FC<PanelProps> = ({
   return (
     <div style={outerStyle}>
       {label !== "" && label}
-      {/* div below handles space between case */}
-      <div>
-        <div style={containerStyle}>{panel}</div>
-        {labelBelow !== "" && labelBelow}
-      </div>
+      <div style={containerStyle}>{panel}</div>
+      {labelBelow !== "" && labelBelow}
     </div>
   )
 }

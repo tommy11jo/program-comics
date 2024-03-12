@@ -20,7 +20,7 @@ export const meta = {
 
 # Python Code
 
-🌟 I recommend trying to implement this yourself before looking at in detail. Continue on to the comic.
+🌟 Learning Tip: Try to implement Dijkstra's yourself before looking at this in detail. Continue on to the comic.
 
 <DijkstraCode />
 
@@ -30,7 +30,7 @@ export const meta = {
 
 # Behavior Slideshow
 
-🌟 I recommend that you try to predict the state changes as you go through the slideshow. Use this understanding to try to implement the code yourself.
+🌟 Learning Tip: try to predict the state changes as you go through the slideshow. Use this understanding to try to implement the code yourself.
 
 <Slideshow folder="/graphics/dijkstra/slideshow" size={16} />
 
@@ -53,6 +53,16 @@ export const meta = {
   ]}
 />
 
+## Credits
+
+Strongly influenced by Josh Hug's [Djikstra's explanation](https://joshhug.gitbooks.io/hug61b/content/chap19/chap192.html) from CS 61B, where I first learned Dijkstra's
+
 export default ({ children }) => {
-  return <Layout meta={meta}>{children}</Layout>
+  return (
+    <Layout meta={meta}>
+      <ConfigProvider config={{ alignItems: "flex-start" }}>
+        {children}
+      </ConfigProvider>
+    </Layout>
+  )
 }

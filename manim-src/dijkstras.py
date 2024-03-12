@@ -18,8 +18,8 @@ CIRCLE_COLORS = [
     MAROON_E,
 ]  # unique colors for <=6 distinct edges
 
-# config.frame_size = (1000, 900)
-config.frame_size = (500, 450)
+config.frame_size = (1000, 900)
+# config.frame_size = (500, 450)
 
 GRAPH1 = {
     0: [(1, 2), (2, 1)],
@@ -357,8 +357,8 @@ class ShortestPath(MovingCameraScene):
                     continue
                 if cur_node == end:
                     reached = True
-                    vgraph.highlight_node(cur_node)
                     self.capture()
+                    vgraph.highlight_node(cur_node)
                     break
 
                 self.capture()
@@ -407,7 +407,7 @@ class ShortestPath(MovingCameraScene):
                     vgraph.highlight_edge(node, prev, color=FOCUS_COLOR)
                 path.append(start)
                 path.reverse()
-                vgraph.highlight_node(node, color=FOCUS_COLOR)
+                vgraph.highlight_node(node, color=FOCUS_COLOR, opacity=1.0)
                 self.capture()
                 return distances[end], path
             return float("inf"), []

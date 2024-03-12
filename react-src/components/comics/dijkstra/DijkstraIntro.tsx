@@ -1,4 +1,4 @@
-import { Panel, Row, Text } from "@/components"
+import { Column, Panel, Row, Text } from "@/components"
 import Editor from "@monaco-editor/react"
 
 const DijkstraIntro = () => {
@@ -13,8 +13,16 @@ const DijkstraIntro = () => {
       Dijkstra's algorithm is used to find the shortest paths between a source
       vertex and all other vertices in a graph with nonnegative weights.
       Djikstra's can also solve the more specific problem of finding the
-      shortest path from a start vertex to an end vertex. A common use case is
-      finding directions from Point A to Point B on a map.
+      shortest path from a start vertex to an end vertex. One use case could be
+      finding directions from Point A to Point B using roads on a map.
+    </span>
+  )
+
+  let textRuntime = (
+    <span>
+      <b>Runtime: </b>
+      <code>O((E+V)logV)</code> for a simple python implementation (see below),
+      where E is the number of edges and V is the number of vertices.
     </span>
   )
   let algSteps = (
@@ -23,7 +31,7 @@ const DijkstraIntro = () => {
       <ul>
         <li>
           Initialize a priority queue <code>PQ</code> and a map{" "}
-          <code>distances</code>.
+          <code>distances</code> and a map <code>prev</code>.
         </li>
         <li>
           Repeat until <code>PQ</code> is empty:
@@ -34,49 +42,30 @@ const DijkstraIntro = () => {
           </li>
           <li>
             <b>Relax</b> the outgoing edges of <code>v</code> by updating{" "}
-            <code>distances</code> and <code>PQ</code> and also{" "}
-            <code>prev</code> for tracking these paths. See the picture to see a
-            relaxation step.
+            <code>distances</code>, <code>PQ</code>, and <code>prev</code>. See
+            the picture above to see a relaxation step.
           </li>
         </ul>
       </ul>
     </span>
   )
-  let textRuntime = (
-    <span>
-      <b>Runtime: </b>
-      With a simple python implementation (see below), its runtime is{" "}
-      <code>O((E+V)logV)</code> where E is the number of edges and V is the
-      number of vertices.
-    </span>
-  )
 
-  let snapshotText = (
-    <div>
-      {textIntro}
-      <br />
-      <br />
-      {algSteps}
-      <br />
-      {textRuntime}
-    </div>
-  )
+  let snapshotText = <div>{textIntro}</div>
   return (
-    <div>
-      <Row
-        comps={[
-          <Panel
-            label={
-              <div>
-                <Text fontSize="18px" value={snapshotText} />
-              </div>
-            }
-          />,
-          <Panel
-            panel={<img src="/graphics/dijkstra/comic-behavior/step6.png" />}
-          />,
-        ]}
-      />
+    <div className="flex flex-col">
+      <div className="flex flex-row">
+        <div className="w-3/5">
+          {<Text fontSize="20px" value={snapshotText} />}
+          <br />
+          {<Text fontSize="20px" value={textRuntime} />}
+        </div>
+        <div className="w-2/5">
+          <img src="/graphics/dijkstra/comic-behavior/step6.png" alt="" />
+        </div>
+      </div>
+
+      <br />
+      {<Text value={algSteps} />}
     </div>
   )
 }

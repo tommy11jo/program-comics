@@ -99,3 +99,13 @@ code {
   font-family: "Roboto Mono", monospace;
   white-space: pre-wrap;
 }
+
+hr {
+  border-color: white;
+  /* this does not work, due to weird processing of hr tag in flex */
+  /* width: 100%; */
+  /* @apply w-3xl; */
+  /* 48rem - 2rem for margin -2rem arbitrary ancestor padding */
+  width: 44rem;
+  margin: 1rem;
+}
