@@ -1,5 +1,4 @@
 "use client"
-import { Text } from "@/components"
 import Slideshow from "@/components/Slideshow"
 import { GREEN_B, RED } from "@/lib/colorConstants"
 const InsertionSortCode = () => {
@@ -11,9 +10,23 @@ const InsertionSortCode = () => {
       <span>Sort a list of comparable elements.</span>
     </div>
   )
-  const elText = <Text value="element" color={CUR_RED} inline={true} />
+  const elText = (
+    <span
+      style={{
+        color: CUR_RED,
+      }}
+    >
+      element
+    </span>
+  )
   const arrayText = (
-    <Text value="sorted subarray" color={CUR_GREEN} inline={true} />
+    <span
+      style={{
+        color: CUR_GREEN,
+      }}
+    >
+      sorted subarray
+    </span>
   )
   const algSteps = (
     <div>
@@ -48,7 +61,7 @@ const InsertionSortCode = () => {
   )
   return (
     <div>
-      <Text value={summary} />
+      {summary}
 
       <Slideshow folder="/graphics/insertion-sort/slideshow1" size={16} />
     </div>

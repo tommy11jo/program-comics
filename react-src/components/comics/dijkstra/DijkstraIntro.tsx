@@ -1,12 +1,4 @@
-import { Column, Panel, Row, Text } from "@/components"
-import Editor from "@monaco-editor/react"
-
 const DijkstraIntro = () => {
-  const CUR_BLUE = "#58C4DD"
-  const DIST_RED = "#7E312A"
-  const VERTEX_RED = "#FC6255"
-  const CUR_GRAY = "#383838"
-
   let textIntro = (
     <span>
       <b>Purpose: </b>
@@ -67,9 +59,9 @@ const DijkstraIntro = () => {
     <div className="flex flex-col">
       <div className="flex flex-row">
         <div className="w-3/5">
-          {<Text fontSize="20px" value={snapshotText} />}
+          {snapshotText}
           <br />
-          {<Text fontSize="20px" value={textRuntime} />}
+          {textRuntime}
         </div>
         <div className="w-2/5">
           <img src="/graphics/dijkstra/comic-behavior/step6.png" alt="" />
@@ -77,7 +69,7 @@ const DijkstraIntro = () => {
       </div>
 
       <br />
-      {<Text value={algSteps} />}
+      {algSteps}
     </div>
   )
 }

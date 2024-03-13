@@ -53,7 +53,6 @@ const Sequence: React.FC<SequenceProps> = ({
         {comps.map((Comp, index) => (
           <div
             key={index}
-            // style={{ display: "flex", flex: "0 1 auto" }}
             style={{ display: "flex", flex: equalSpace ? 1 : "0 1 auto" }}
           >
             {Comp}

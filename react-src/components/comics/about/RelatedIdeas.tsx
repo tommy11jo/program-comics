@@ -1,4 +1,4 @@
-import { Panel, Row, Text } from "@/components"
+import { Panel, Row } from "@/components"
 import Link from "next/link"
 const RelatedIdeas = () => {
   const row1 = (
@@ -58,16 +58,11 @@ const RelatedIdeas = () => {
     <Row
       equalSpace={false}
       label={
-        <Text
-          value={
-            <span>
-              <b>Idea 3: </b>An alternative to wikipedia when I want intuition
-              instead of verbal detail for programming concepts??? (I do like
-              wikipedia, just usually not for conceptual learning). This
-              feeling:
-            </span>
-          }
-        />
+        <span>
+          <b>Idea 3: </b>An alternative to wikipedia when I want intuition
+          instead of verbal detail for programming concepts??? (I do like
+          wikipedia, just usually not for conceptual learning). This feeling:
+        </span>
       }
       comps={[
         <Panel useOutline={true} panel={<em>{euclid}</em>} />,
