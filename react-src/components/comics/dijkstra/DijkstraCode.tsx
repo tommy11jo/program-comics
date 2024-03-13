@@ -34,10 +34,9 @@ dist, prev = dijkstra(g, start)
 print("distance to 6 should be 10 and is", dist[6])
 `
   return (
-    <div>
+    <div className="rounded-lg overflow-hidden">
       <Editor
         className="monaco-editor"
-        //   height="38rem"
         height={pythonCode.split("\n").length * 21 + "px"}
         defaultLanguage="python"
         theme="vs-dark"

@@ -42,9 +42,9 @@ const Slideshow: React.FC<SlideshowProps> = ({
     updateCurrentSlide((currentRef.current - 1 + size) % size)
   const lastSlide = () => updateCurrentSlide(size - 1)
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === "ArrowRight") {
+    if (e.key === "ArrowRight" && currentRef.current !== size - 1) {
       nextSlide()
-    } else if (e.key === "ArrowLeft") {
+    } else if (e.key === "ArrowLeft" && currentRef.current !== 0) {
       prevSlide()
     }
   }, [])
@@ -120,6 +120,18 @@ const Slideshow: React.FC<SlideshowProps> = ({
             }
           </div>
         ))}
+      </div>
+      <div className="flex flex-row justify-end">
+        <div className="flex flex-row justify-end">
+          <span
+            style={{
+              visibility: isFocused ? "visible" : "hidden",
+              color: "gray",
+            }}
+          >
+            Use Arrow keys
+          </span>
+        </div>
       </div>
     </div>
   )

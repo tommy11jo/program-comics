@@ -41,11 +41,9 @@ const Sequence: React.FC<SequenceProps> = ({
   }
   const sequenceStyle: React.CSSProperties = {
     display: "flex",
-    // flexDirection: isColumn ? "column" : "row",
     gap: gap,
     alignItems: alignItems,
   }
-  //   <div key={index} style={{ display: "flex" }}>
   return (
     <div style={outerStyle}>
       {label !== "" && label}

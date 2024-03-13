@@ -32,11 +32,14 @@ const InsertionSortCode = () => {
     <div>
       <b>Algorithm Steps: </b>
       <ul>
-        <li>For each {elText}, moving from left to right:</li>
-
         <li>
-          Move the {elText} into the {arrayText}. One way to do this is by
-          swapping side-by-side elements repeatedly.
+          For each {elText}, moving from left to right:
+          <ul>
+            <li>
+              Move the {elText} into the {arrayText}. One way to do this is by
+              swapping side-by-side elements repeatedly.
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -63,7 +66,7 @@ const InsertionSortCode = () => {
     <div>
       {summary}
 
-      <Slideshow folder="/graphics/insertion-sort/slideshow1" size={16} />
+      <Slideshow folder="/graphics/insertion-sort/slideshow1" size={21} />
     </div>
   )
 }

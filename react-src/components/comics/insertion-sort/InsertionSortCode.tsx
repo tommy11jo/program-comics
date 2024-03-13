@@ -15,7 +15,7 @@ insertion_sort(lst)
 print("list sorted:", lst)
 `
   return (
-    <div>
+    <div className="rounded-lg overflow-hidden">
       <Editor
         className="monaco-editor"
         //   height="38rem"

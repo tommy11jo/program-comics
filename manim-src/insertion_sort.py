@@ -168,20 +168,26 @@ class InsertionSort(Scene):
                 self.capture()
                 self.clear()
                 while True:
+                    if j < 0:
+                        break
                     vlist = self.show_new_list(lst)
                     self.show_subarray(vlist, subarray_len=i)
                     self.show_list_swap(vlist, j, j + 1, lst[j], lst[j + 1])
                     self.capture()
                     self.clear()
-                    lst[j + 1] = lst[j]
-                    j -= 1
-                    if j < 0 or lst[j] < cur:
+                    if lst[j] <= cur:
                         break
 
-                lst[j + 1] = cur
+                    lst[j], lst[j + 1] = lst[j + 1], lst[j]
+                    j -= 1
+
                 vlist = self.show_new_list(lst)
                 self.show_insertion_result(vlist, i, j + 1)
                 self.capture()
                 self.clear()
+
+            vlist = self.show_new_list(lst)
+            self.show_subarray(vlist, subarray_len=len(lst))
+            self.capture()
 
         insertion_sort(lst)
