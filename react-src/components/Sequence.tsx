@@ -5,6 +5,7 @@ type SequenceProps = {
   label?: ReactElement | string
   labelBelow?: ReactElement | string
   gap?: number
+  equalSpace?: boolean // toggles flex-1
   isColumn?: boolean
   hmargin?: string
   vmargin?: string
@@ -17,6 +18,7 @@ const Sequence: React.FC<SequenceProps> = ({
   label = "",
   labelBelow = "",
   gap = "0.3rem",
+  equalSpace = true,
   isColumn = false,
   hmargin = "0",
   vmargin = "0",
@@ -43,12 +45,17 @@ const Sequence: React.FC<SequenceProps> = ({
     gap: gap,
     alignItems: alignItems,
   }
+  //   <div key={index} style={{ display: "flex" }}>
   return (
     <div style={outerStyle}>
       {label !== "" && label}
       <div style={sequenceStyle} className={!isColumn ? "row" : "column"}>
         {comps.map((Comp, index) => (
-          <div key={index} style={{ display: "flex", flex: 1 }}>
+          <div
+            key={index}
+            // style={{ display: "flex", flex: "0 1 auto" }}
+            style={{ display: "flex", flex: equalSpace ? 1 : "0 1 auto" }}
+          >
             {Comp}
           </div>
         ))}

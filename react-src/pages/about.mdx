@@ -1,5 +1,5 @@
 import Layout from "./post/layout.tsx"
-import OtherPerspectives from "../components/comics/about/OtherPerspectives.tsx"
+import RelatedIdeas from "../components/comics/about/RelatedIdeas.tsx"
 export const meta = {
   title: "About",
   date: "March 12, 2024",
@@ -12,12 +12,30 @@ export const meta = {
 
 # About
 
-Program Comics is a place to learn programming concepts visually, often in a sequence of annotated images.
-The name "Program Comics" also refers to how these comics are entirely programmed, including the diagrams which are made using [Manim](https://github.com/3b1b/manim).
+Program Comics is a place to review or learn programming concepts visually, often through a sequence of annotated images.
+The name "Program Comics" also refers to how these comics are entirely programmed, including the diagrams which are made using [Manim](https://github.com/3b1b/manim). By: [Tommy Joseph](https://babbleprune.com)
 
-## Other perspectives
+## Design
 
-<OtherPerspectives />
+- **Concepts and Categories:** Concepts are placed into a single category, like Dijkstra’s in Graph Algorithms.
+- **Two Pages for each Concept:** Each concept has two pages, one for _review_ and one for _learning_.
+  A tarpit I almost got stuck in was trying to serve two audiences at once: the completely new learner and the familiar reviewer.
+  In practice, the new learner should be actively engaged and feel some personality in the writing.
+  The reviewer often wants clarity and concept compression (think: chess experts and their [Chunking](https://www.notion.so/d58705114028435183206d2a83a0fe7a?pvs=21)).
+  If the reviewer wants verbal detail, then they have wikipedia.
+- **A Page of Components:** Each page is an [mdx](https://nextjs.org/docs/pages/building-your-application/configuring/mdx) file with react components.
+  The python code editor, slideshows, and comic grids are components. Components can be implicit (like the comic) or explicit (like the slideshow).
+  TODO: Learning pages need more engagement components, say for quizzing the learner.
+  I haven’t done learning pages yet.
+- **Behavioral or Conceptual Explanations:** Each page can also be viewed as a list of explanations, where each explanation is made up of these components.
+  Yes, these explanations are tied together but an important distinction is behavioral and conceptual explanations.
+  A behavioral explanation shows what the program does in individual steps, like in [Python Tutor](https://pythontutor.com/).
+  A conceptual explanation shows the concept at different angles, integrates this concept with adjacent concepts, and most importantly covers the concept’s essence.
+  Slideshows are often used for behavioral explanations, while comics or plain markdown are used for conceptual explanations. For simple concepts like insertion sort, the behavioral and conceptual distinction isn’t very important.
+
+## Related Ideas
+
+<RelatedIdeas />
 
 export default ({ children }) => {
   return <Layout meta={meta}>{children}</Layout>

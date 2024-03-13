@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react"
 import Text from "./Text"
-import { CENTER, DOWN, UP } from "@/lib/constants"
 
 // TODO: this type constraint isn't working, pass in <div> to panel
 type ReactImage = ReactElement<{ src: string; alt?: string }>

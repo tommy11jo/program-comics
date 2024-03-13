@@ -76,7 +76,6 @@ class WeightedDiGraph(DiGraph):
         edge_config={},
         start=None,
         end=None,
-        graph_only=False,
         **kwargs,
     ):
         vertex_radius = 0.4
