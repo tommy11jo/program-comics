@@ -109,3 +109,16 @@ hr {
   width: 44rem;
   margin: 1rem;
 }
+
+/* for now, make font on page Comic Neue */
+/* .comic-page p,
+.comic-page span {
+  font-family: "Comic Neue", "Roboto", "Arial", sans-serif;
+  font-size: 22px;
+} */
+/* Prevent the above from overriding monaco values */
+/* .monaco-editor p,
+.monaco-editor span {
+  font-family: Arial, "Consolas", "Courier New", monospace !important;
+  font-size: 14px !important; 
+} */

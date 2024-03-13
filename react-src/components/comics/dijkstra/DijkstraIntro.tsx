@@ -30,8 +30,20 @@ const DijkstraIntro = () => {
       <b>Algorithm Steps: </b>
       <ul>
         <li>
-          Initialize a priority queue <code>PQ</code> and a map{" "}
-          <code>distances</code> and a map <code>prev</code>.
+          Initialize:
+          <ul>
+            <li>
+              A priority queue <code>PQ</code> - where priorities are distances
+              and values are vertices
+            </li>
+            <li>
+              A map <code>distances</code> - tracks best distances to each
+              vertex so far
+            </li>
+            <li>
+              A map <code>prev</code> - tracks previous vertex along path
+            </li>
+          </ul>
         </li>
         <li>
           Repeat until <code>PQ</code> is empty:

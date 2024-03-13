@@ -11,7 +11,7 @@ interface LayoutProps {
 export default function Layout({ children, ...props }: LayoutProps) {
   return (
     <ConfigProvider>
-      <div className="flex flex-col items-center min-h-screen p-2 lg:p-4">
+      <div className="comic-page flex flex-col items-center min-h-screen p-2 lg:p-4">
         <div className="w-full max-w-3xl shadow-lg rounded-lg my-8">
           <div className="lg:p-6">
             <div className="text-left text-base leading-relaxed">
