@@ -1,0 +1,31 @@
+import Layout from "./post/layout.tsx"
+import { Text, Row, Panel } from "../components/index.tsx"
+
+import Slideshow from "../components/Slideshow.tsx"
+import { ConfigProvider } from "../components/ConfigContext.tsx"
+import InsertionSortCode from "../components/comics/insertion-sort/InsertionSortCode.tsx"
+import InsertionSortSnapshot from "../components/comics/insertion-sort/InsertionSortSnapshot.tsx"
+import { LEFT, RIGHT } from "../lib/constants"
+export const meta = {
+  title: "Dijkstra's",
+  date: "2024-03-08",
+  picturePath: "/graphics/insertion-sort/slideshow1/step0.png",
+}
+
+# Insertion Sort Snapshot
+
+<InsertionSortSnapshot />
+
+# Python Code
+
+<InsertionSortCode />
+
+export default ({ children }) => {
+  return (
+    <Layout meta={meta}>
+      <ConfigProvider config={{ alignItems: "flex-start" }}>
+        {children}
+      </ConfigProvider>
+    </Layout>
+  )
+}
