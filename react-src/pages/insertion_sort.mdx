@@ -1,18 +1,27 @@
 import Layout from "./post/layout.tsx"
-import { Text, Row, Panel } from "../components/index.tsx"
+import { Text, Row, Panel } from "@/components"
 
 import Slideshow from "../components/Slideshow.tsx"
 import { ConfigProvider } from "../components/ConfigContext.tsx"
 import InsertionSortCode from "../components/comics/insertion-sort/InsertionSortCode.tsx"
 import InsertionSortSnapshot from "../components/comics/insertion-sort/InsertionSortSnapshot.tsx"
 import { LEFT, RIGHT } from "../lib/constants"
+
 export const meta = {
-  title: "Dijkstra's",
-  date: "2024-03-08",
-  picturePath: "/graphics/insertion-sort/slideshow1/step0.png",
+  title: "Insertion Sort",
+  date: "March 12, 2024",
+  picturePaths: [
+    "/graphics/insertion-sort/slideshow1/step7.png",
+    "/graphics/insertion-sort/slideshow1/step8.png",
+    "/graphics/insertion-sort/slideshow1/step9.png",
+  ],
+  category: "sorting-algs",
+  description: "Sort a list of comparable elements.",
+  runtime: "O(N^2)",
+  include: true,
 }
 
-# Insertion Sort Snapshot
+# Insertion Sort
 
 <InsertionSortSnapshot />
 

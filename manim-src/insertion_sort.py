@@ -164,7 +164,7 @@ class InsertionSort(Scene):
                 j = i - 1
                 vlist = self.show_new_list(lst)
                 self.show_subarray(vlist, subarray_len=i)
-                self.show_insertion_plan(vlist, j)
+                self.show_insertion_plan(vlist, i)
                 self.capture()
                 self.clear()
                 while True:

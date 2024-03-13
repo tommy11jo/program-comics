@@ -1,6 +1,5 @@
 import { ConfigProvider } from "@/components/ConfigContext"
 import { Text } from "@/components"
-import { FaGithub } from "react-icons/fa"
 interface LayoutProps {
   children: React.ReactNode
   meta: {
@@ -23,24 +22,15 @@ export default function Layout({ children, ...props }: LayoutProps) {
         </div>
         <footer className="w-full py-4">
           <div className="my-10">
-            <Text
+            {/* <Text
               fontSize={"20px"}
               justifyContent={"center"}
               value={
                 <div className="flex flex-col items-center">
-                  <p className="text-sm mt-2 mb-0">Created by Tommy Joseph</p>
-                  <a
-                    href="https://github.com/tommy11jo/program-comics"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-underline inline-flex items-center"
-                  >
-                    <FaGithub className="mr-2" />
-                    See project on GitHub
-                  </a>
+                  <p className="text-sm mt-2 mb-0">Program Comics</p>
                 </div>
               }
-            />
+            /> */}
           </div>
         </footer>
       </div>

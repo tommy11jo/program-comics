@@ -46,8 +46,8 @@ const Panel: React.FC<PanelProps> = ({
     flexShrink: 1,
     flexGrow: 1,
     outline: useOutline ? "2px solid gray" : null,
-    borderRadius: "0.25rem",
-    // padding: "0.5rem",
+    borderRadius: "0.4rem",
+    padding: "0.2rem",
   }
 
   return (

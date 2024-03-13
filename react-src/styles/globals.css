@@ -40,17 +40,20 @@ body {
 html,
 body {
   font-family: "Roboto", "Arial", sans-serif;
+  @apply font-comic;
   line-height: 1.6;
   font-size: 20px;
 }
 a:hover {
-  text-decoration: underline;
+  /* color: #1e90ff; */
+  color: #a6cf8c;
 }
 
 a {
-  color: #1e90ff;
+  color: #83c167;
   text-decoration: none;
 }
+
 ul,
 ol {
   list-style-type: disc;
@@ -95,7 +98,7 @@ img {
 }
 
 code {
-  color: #fcaf3e;
+  color: #e1a158;
   font-family: "Roboto Mono", monospace;
   white-space: pre-wrap;
 }

@@ -3,15 +3,7 @@ import matter from "gray-matter"
 import fs from "fs"
 import { remark } from "remark"
 import html from "remark-html"
-export interface PageHeaderData {
-  date: string
-  title?: string
-  picturePath?: string
-  [key: string]: any
-}
-export interface ConceptPageMetadata extends PageHeaderData {
-  id: string
-}
+import { ConceptPageMetadata, PageMetadataType } from "./conceptCategories"
 
 const pageDir = path.join(process.cwd(), "pages")
 // export function getSortedConceptsData(): ConceptPageMetadata[] {
@@ -23,7 +15,7 @@ export const getConceptData = async (
   const fullPath = path.join(pageDir, fname)
   const fileContent = fs.readFileSync(fullPath, "utf8")
   const matterResult = matter(fileContent)
-  const pageMetadata = matterResult.data as PageHeaderData
+  const pageMetadata = matterResult.data as PageMetadataType
   const processedContent = await remark()
     .use(html)
     .process(matterResult.content)

@@ -1,42 +1,84 @@
-import { ConceptPageMetadata } from "../lib/concepts"
-import Link from "next/link"
-import Image from "next/image"
 import { GetStaticProps } from "next"
 import fs from "fs"
 import path from "path"
+import {
+  ConceptPageMetadata,
+  allConceptCategories,
+} from "@/lib/conceptCategories"
+import Link from "next/link"
 const Home = ({ posts }: { posts: ConceptPageMetadata[] }) => {
+  const postsByCategory = {}
+
+  for (const category in allConceptCategories) postsByCategory[category] = []
+
+  for (const post of posts) {
+    const { category, title } = post
+    if (!(category in allConceptCategories)) {
+      console.error(`Invalid category for post: ${title}`)
+      continue
+    }
+
+    postsByCategory[category].push(post)
+  }
   return (
-    <section>
-      <ul>
-        {posts &&
-          posts.map(({ id, date, title, picturePath }) => (
-            <li key={id}>
-              <span className="p-4">{date}</span>
-              <Link href={`/${id}`}>{title}</Link>
-              {/* https://nextjs.org/docs/pages/api-reference/components/image#responsive-images */}
-              {picturePath && (
-                <div
-                  style={{
-                    position: "relative",
-                    width: "300px",
-                    height: "300px",
-                  }}
-                >
-                  <Image
-                    src={picturePath}
-                    alt={title ?? ""}
-                    sizes="500px"
-                    fill
-                    style={{
-                      objectFit: "contain",
-                    }}
-                  />
-                </div>
-              )}
-            </li>
-          ))}
-      </ul>
-    </section>
+    <div className="font-comic flex flex-col items-center min-h-screen p-2 lg:p-4">
+      <div className="w-full max-w-3xl">
+        {Object.entries(allConceptCategories).map(
+          ([categorySlug, categoryName]) => (
+            <section key={categorySlug}>
+              <h2>{categoryName}</h2>
+              <ul className="list-none">
+                {postsByCategory[categorySlug].map(
+                  ({ id, title, picturePaths, description, runtime }) => (
+                    <li key={id}>
+                      <Link href={`/${id}`}>
+                        <div className="group flex flex-col outline outline-2 outline-[#222] hover:outline-[#444] opacity-[0.88] hover:opacity-[1.0] p-2 m-2 lg:p-4 lg:m-8 rounded-lg">
+                          <span>
+                            {title}:{" "}
+                            <span className="text-white group-hover:text-white">
+                              {description}
+                              {runtime && (
+                                <span>
+                                  {" "}
+                                  The runtime is <code>{runtime}.</code>
+                                </span>
+                              )}
+                            </span>
+                          </span>
+                          <div className="flex flex-row gap-2">
+                            {picturePaths.map((picturePath) => (
+                              <>
+                                <div
+                                  style={{
+                                    position: "relative",
+                                    width: "300px",
+                                    display: "block",
+                                  }}
+                                >
+                                  <img
+                                    src={picturePath}
+                                    alt={title ?? ""}
+                                    style={{
+                                      width: "100%",
+                                      height: "100%",
+                                      objectFit: "contain",
+                                    }}
+                                  />
+                                </div>
+                              </>
+                            ))}
+                          </div>
+                        </div>
+                      </Link>
+                    </li>
+                  )
+                )}
+              </ul>
+            </section>
+          )
+        )}
+      </div>
+    </div>
   )
 }
 const pageDir = path.join(process.cwd(), "pages")
@@ -47,13 +89,16 @@ export const getStaticProps: GetStaticProps = async () => {
   // Note: Install MDX ext for syntax highlighting in .mdx files: https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx
   const posts: ConceptPageMetadata[] = await Promise.all(
     mdxFiles.map(async (fname) => {
-      const { meta } = (await import(`../pages/${fname}`)) as any
+      const { meta } = (await import(`../pages/${fname}`)) as {
+        meta: ConceptPageMetadata
+      }
       return {
         id: fname.substring(0, fname.length - 4),
         ...meta,
       }
     })
   )
-  return { props: { posts } }
+  const validPosts = posts.filter((post) => post.include)
+  return { props: { posts: validPosts } }
 }
 export default Home

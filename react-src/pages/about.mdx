@@ -1,0 +1,24 @@
+import Layout from "./post/layout.tsx"
+import OtherPerspectives from "../components/comics/about/OtherPerspectives.tsx"
+export const meta = {
+  title: "About",
+  date: "March 12, 2024",
+  picturePaths: [],
+  category: "N/A",
+  description: "N/A",
+  runtime: "N/A",
+  include: false,
+}
+
+# About
+
+Program Comics is a place to learn programming concepts visually, often in a sequence of annotated images.
+The name "Program Comics" also refers to how these comics are entirely programmed, including the diagrams which are made using [Manim](https://github.com/3b1b/manim).
+
+## Other perspectives
+
+<OtherPerspectives />
+
+export default ({ children }) => {
+  return <Layout meta={meta}>{children}</Layout>
+}

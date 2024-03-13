@@ -33,15 +33,15 @@ const DijkstraIntro = () => {
           Initialize:
           <ul>
             <li>
-              A priority queue <code>PQ</code> - where priorities are distances
+              A priority queue <code>PQ</code>: where priorities are distances
               and values are vertices
             </li>
             <li>
-              A map <code>distances</code> - tracks best distances to each
-              vertex so far
+              A map <code>distances</code>: vertex → best distance so far
             </li>
             <li>
-              A map <code>prev</code> - tracks previous vertex along path
+              A map <code>prev</code>: vertex → previous vertex in best path
+              found so far
             </li>
           </ul>
         </li>
