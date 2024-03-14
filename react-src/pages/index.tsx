@@ -97,7 +97,9 @@ export const getStaticProps: GetStaticProps = async () => {
       }
     })
   )
-  const validPosts = posts.filter((post) => post.pageType === "review")
+  const validPosts = posts.filter(
+    (post) => post.pageType === "review" || post.pageType === "learn"
+  )
   return { props: { posts: validPosts } }
 }
 export default Home
