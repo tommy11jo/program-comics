@@ -1,5 +1,4 @@
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import CodeEditor from "@/components/CodeEditor"
 const DijkstraCode = () => {
   const pythonCode = `import heapq
 # graph is a map from vertex v => list of outgoing edges
@@ -33,21 +32,7 @@ start = 0
 dist, prev = dijkstra(g, start)
 print("distance to 6 should be 10 and is", dist[6])
 `
-  const customStyle = {
-    ...vscDarkPlus,
-    'pre[class*="language-"]': {
-      fontFamily: '"Roboto Mono", monospace',
-    },
-    'code[class*="language-"]': {
-      fontFamily: '"Roboto Mono", monospace',
-    },
-  }
-  return (
-    <div className="p-2 outline outline-[#333] rounded-lg">
-      <SyntaxHighlighter language="python" style={customStyle}>
-        {pythonCode}
-      </SyntaxHighlighter>
-    </div>
-  )
+
+  return <CodeEditor code={pythonCode} lang="python" />
 }
 export default DijkstraCode

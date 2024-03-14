@@ -1,5 +1,4 @@
-import { Editor } from "@monaco-editor/react"
-
+import CodeEditor from "@/components/CodeEditor"
 const InsertionSortCode = () => {
   const pythonCode = `def insertion_sort(lst):
   for i, cur in enumerate(lst):
@@ -14,24 +13,6 @@ lst = [1, 8, 32, -3, 2, 10, 1, 5, 100]
 insertion_sort(lst)
 print("list sorted:", lst)
 `
-  return (
-    <div className="rounded-lg overflow-hidden">
-      <Editor
-        className="monaco-editor"
-        //   height="38rem"
-        height={pythonCode.split("\n").length * 21 + "px"}
-        defaultLanguage="python"
-        theme="vs-dark"
-        defaultValue={pythonCode}
-        options={{
-          readOnly: true,
-          minimap: { enabled: false },
-          scrollbar: { vertical: "hidden", alwaysConsumeMouseWheel: false },
-          scrollBeyondLastLine: false,
-          fontSize: 14,
-        }}
-      />
-    </div>
-  )
+  return <CodeEditor code={pythonCode} lang="python" />
 }
 export default InsertionSortCode
