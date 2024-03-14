@@ -5,8 +5,7 @@ import type { AppProps } from "next/app"
 import Link from "next/link"
 
 function MyApp({ Component, pageProps }: AppProps) {
-  //   const isDev = process.env.NODE_ENV === "development"
-  const homePath = "http://localhost:3000"
+  const homePath = "./"
 
   return (
     <>
