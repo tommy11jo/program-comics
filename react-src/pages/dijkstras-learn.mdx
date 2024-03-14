@@ -1,16 +1,11 @@
 import Layout from "./post/layout.tsx"
-import { Row, Panel } from "../components/index.tsx"
-
-import Slideshow from "../components/Slideshow.tsx"
 import DijkstraBehaviorComic from "../components/comics/dijkstra/DijkstraBehaviorComic.tsx"
-import DijkstraIntro from "../components/comics/dijkstra/DijkstraIntro.tsx"
 import DijkstraCode from "../components/comics/dijkstra/DijkstraCode.tsx"
 import { ConfigProvider } from "../components/ConfigContext.tsx"
 
-import { LEFT, RIGHT } from "../lib/constants"
 export const meta = {
   title: "Dijkstra's Algorithm",
-  date: "March 12, 2024",
+  date: "March 13, 2024",
   picturePaths: [
     "/graphics/dijkstra/comic-behavior/step6.png",
     "/graphics/dijkstra/comic-behavior/step7.png",
@@ -20,44 +15,26 @@ export const meta = {
   description:
     "Find the shortest paths between a source vertex and all other vertices in a graph with nonnegative weights.",
   runtime: "O((E + V)log(V))",
-  include: true,
+  pageType: "learn",
 }
 
-# Dijkstra's Algorithm
-
-<DijkstraIntro />
-
-# Python Code
-
-🌟 Learning Tip: Try to implement Dijkstra's yourself before looking at this in detail. Continue on to the comic.
-
-<DijkstraCode />
+## Note: This is incomplete.
 
 # Behavior Comic
 
 <DijkstraBehaviorComic />
 
-# Behavior Slideshow
+{/* 🌟 Learning Tip: Try to implement Dijkstra's yourself before looking at this in detail. Continue on to the comic. */}
 
-<Slideshow folder="/graphics/dijkstra/slideshow1" size={16} />
+{/* 🌟 Learning Tip: Try to predict the state changes as you go through the slideshow. Use this understanding to try to implement the code yourself. */}
 
-🌟 Learning Tip: Try to predict the state changes as you go through the slideshow. Use this understanding to try to implement the code yourself.
-
-# Concepts and Proof
-
-Coming soon! Maybe.
 {/* Scratch Notes: Runtime breakdown. Negative edges. Connection to BFS. Proof. Interesting problem with needing shortest path to reach N points in any order and then come back. Find shortest path between all pairs of N points. Those are now edges. Duplicate source. Then find shortest path on new graph from source to duplicate source. */}
-
-## Credits
-
-Strongly influenced by Josh Hug's [Djikstra's explanation](https://joshhug.gitbooks.io/hug61b/content/chap19/chap192.html) from CS 61B, where I first learned Dijkstra's
-
 export default ({ children }) => {
-  return (
-    <Layout meta={meta}>
-      <ConfigProvider config={{ alignItems: "flex-start" }}>
-        {children}
-      </ConfigProvider>
-    </Layout>
-  )
-}
+return (
+
+<Layout meta={meta}>
+  <ConfigProvider config={{ alignItems: "flex-start" }}>
+    {children}
+  </ConfigProvider>
+</Layout>
+) }

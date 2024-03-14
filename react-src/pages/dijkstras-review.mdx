@@ -1,0 +1,52 @@
+import Layout from "./post/layout.tsx"
+import { Row, Panel } from "../components/index.tsx"
+
+import Slideshow from "../components/Slideshow.tsx"
+import DijkstraIntro from "../components/comics/dijkstra/DijkstraIntro.tsx"
+import DijkstraCode from "../components/comics/dijkstra/DijkstraCode.tsx"
+import { ConfigProvider } from "../components/ConfigContext.tsx"
+
+export const meta = {
+  title: "Dijkstra's Algorithm",
+  date: "March 12, 2024",
+  picturePaths: [
+    "/graphics/dijkstra/comic-behavior/step6.png",
+    "/graphics/dijkstra/comic-behavior/step7.png",
+    "/graphics/dijkstra/comic-behavior/step8.png",
+  ],
+  category: "graph-algs",
+  description:
+    "Find the shortest paths between a source vertex and all other vertices in a graph with nonnegative weights.",
+  runtime: "O((E + V)log(V))",
+  pageType: "review",
+}
+
+# Dijkstra's Algorithm
+
+<DijkstraIntro />
+
+# Behavior Slideshow
+
+<Slideshow folder="/graphics/dijkstra/slideshow1" size={16} />
+
+# Python Code
+
+<DijkstraCode />
+
+# Concepts and Proof
+
+Coming soon! Maybe.
+
+## Credits
+
+Strongly influenced by Josh Hug's [Djikstra's explanation](https://joshhug.gitbooks.io/hug61b/content/chap19/chap192.html) from CS 61B, where I first learned Dijkstra's
+
+export default ({ children }) => {
+  return (
+    <Layout meta={meta}>
+      <ConfigProvider config={{ alignItems: "flex-start" }}>
+        {children}
+      </ConfigProvider>
+    </Layout>
+  )
+}

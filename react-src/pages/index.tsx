@@ -32,7 +32,7 @@ const Home = ({ posts }: { posts: ConceptPageMetadata[] }) => {
                   ({ id, title, picturePaths, description, runtime }) => (
                     <li key={id}>
                       <Link href={`/${id}`}>
-                        <div className="group flex flex-col outline outline-2 outline-[#222] hover:outline-[#444] opacity-[0.88] hover:opacity-[1.0] p-2 m-2 lg:p-4 lg:m-8 rounded-lg">
+                        <div className="group flex flex-col outline outline-2 outline-[#222] hover:outline-[#444] opacity-[0.92] hover:opacity-[1.0] p-2 m-2 lg:p-4 lg:m-8 rounded-lg">
                           <span>
                             {title}:{" "}
                             <span className="text-white group-hover:text-white">
@@ -47,25 +47,24 @@ const Home = ({ posts }: { posts: ConceptPageMetadata[] }) => {
                           </span>
                           <div className="flex flex-row gap-2">
                             {picturePaths.map((picturePath) => (
-                              <>
-                                <div
+                              <div
+                                key={picturePath}
+                                style={{
+                                  position: "relative",
+                                  width: "300px",
+                                  display: "block",
+                                }}
+                              >
+                                <img
+                                  src={picturePath}
+                                  alt={title ?? ""}
                                   style={{
-                                    position: "relative",
-                                    width: "300px",
-                                    display: "block",
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "contain",
                                   }}
-                                >
-                                  <img
-                                    src={picturePath}
-                                    alt={title ?? ""}
-                                    style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      objectFit: "contain",
-                                    }}
-                                  />
-                                </div>
-                              </>
+                                />
+                              </div>
                             ))}
                           </div>
                         </div>
@@ -98,7 +97,7 @@ export const getStaticProps: GetStaticProps = async () => {
       }
     })
   )
-  const validPosts = posts.filter((post) => post.include)
+  const validPosts = posts.filter((post) => post.pageType === "review")
   return { props: { posts: validPosts } }
 }
 export default Home

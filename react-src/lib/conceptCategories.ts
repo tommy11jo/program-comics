@@ -10,7 +10,7 @@ export type PageMetadataType = {
   date: string
   picturePaths: string[]
   category: ConceptCategorySlug
-  include: boolean
+  pageType: "review" | "learn" | "about"
 }
 export interface ConceptPageMetadata extends PageMetadataType {
   id: string
