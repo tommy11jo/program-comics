@@ -1,5 +1,4 @@
 import { ConfigProvider } from "@/components/ConfigContext"
-import { Text } from "@/components"
 interface LayoutProps {
   children: React.ReactNode
   meta: {
@@ -21,17 +20,7 @@ export default function Layout({ children, ...props }: LayoutProps) {
           </div>
         </div>
         <footer className="w-full py-4">
-          <div className="my-10">
-            {/* <Text
-              fontSize={"20px"}
-              justifyContent={"center"}
-              value={
-                <div className="flex flex-col items-center">
-                  <p className="text-sm mt-2 mb-0">Program Comics</p>
-                </div>
-              }
-            /> */}
-          </div>
+          <div className="my-10"></div>
         </footer>
       </div>
     </ConfigProvider>
