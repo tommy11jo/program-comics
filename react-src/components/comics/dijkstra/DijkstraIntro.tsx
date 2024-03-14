@@ -57,13 +57,13 @@ const DijkstraIntro = () => {
   let snapshotText = <div>{textIntro}</div>
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row">
-        <div className="w-3/5">
+      <div className="flex flex-col lg:flex-row">
+        <div className="lg:w-3/5">
           {snapshotText}
           <br />
           {textRuntime}
         </div>
-        <div className="w-2/5">
+        <div className="lg:w-2/5">
           <img src="/graphics/dijkstra/comic-behavior/step6.png" alt="" />
         </div>
       </div>

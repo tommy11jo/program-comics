@@ -87,10 +87,10 @@ h6 {
   text-align: center;
 }
 h1 {
-  font-size: 2.25rem;
+  @apply text-2xl lg:text-3xl;
 }
 h2 {
-  font-size: 1.75rem;
+  @apply text-xl lg:text-2xl;
 }
 img {
   max-width: 100%;

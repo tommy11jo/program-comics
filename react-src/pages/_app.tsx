@@ -12,13 +12,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <div className="flex flex-col min-h-screen pr-10">
+      <div className="flex flex-col min-h-screen">
         <header className="p-4 text-left m-0 flex justify-between">
-          <Link href={homePath} className="text-2xl">
+          <Link href={homePath} className="text-lg lg:text-2xl">
             Program Comics
           </Link>
           <div className="flex gap-3 items-start">
-            <Link href={`${homePath}/about`} className="text-md">
+            <Link href="/about" className="text-md">
               <span>About</span>
             </Link>
             <Link
