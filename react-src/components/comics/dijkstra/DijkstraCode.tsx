@@ -1,6 +1,4 @@
-"use client"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { tomorrow } from "react-syntax-highlighter/dist/cjs/styles/prism"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism"
 const DijkstraCode = () => {
   const pythonCode = `import heapq
