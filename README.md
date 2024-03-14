@@ -1,6 +1,6 @@
 # program-comics
 
-A [website](https://programcomics.com) for visual explanations of programming concepts.
+[Program Comics](https://programcomics.com) is a website for visual explanations of programming concepts.
 
 ![dijkstra-steps](/react-src/public/dijkstra-steps.png)
 

@@ -27,7 +27,7 @@ const Home = ({ posts }: { posts: ConceptPageMetadata[] }) => {
           ([categorySlug, categoryName]) => (
             <section key={categorySlug}>
               <h2>{categoryName}</h2>
-              <ul className="list-none">
+              <ul className="list-none m-0 p-0">
                 {postsByCategory[categorySlug].map(
                   ({ id, title, picturePaths, description, runtime }) => (
                     <li key={id}>

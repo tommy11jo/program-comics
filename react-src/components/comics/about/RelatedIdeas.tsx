@@ -7,14 +7,7 @@ const RelatedIdeas = () => {
       label={
         <span>
           <b>Idea 1: </b>
-          <Link
-            href="https://pythontutor.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Python tutor
-          </Link>{" "}
-          but for predefined visual algorithms
+          Python Tutor but for predefined visual algorithms
         </span>
       }
       comps={[
@@ -48,7 +41,7 @@ const RelatedIdeas = () => {
 
   const row2 = (
     <span>
-      <b>Idea 2:</b> An immediate use, high-quality slideshow presentations of
+      <b>Idea 2:</b> An immediate use is high-quality slideshow presentations of
       algorithms to share with teachers/students
     </span>
   )

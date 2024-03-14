@@ -1,5 +1,7 @@
-import Editor from "@monaco-editor/react"
-
+"use client"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { tomorrow } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism"
 const DijkstraCode = () => {
   const pythonCode = `import heapq
 # graph is a map from vertex v => list of outgoing edges
@@ -33,22 +35,20 @@ start = 0
 dist, prev = dijkstra(g, start)
 print("distance to 6 should be 10 and is", dist[6])
 `
+  const customStyle = {
+    ...vscDarkPlus,
+    'pre[class*="language-"]': {
+      fontFamily: '"Roboto Mono", monospace',
+    },
+    'code[class*="language-"]': {
+      fontFamily: '"Roboto Mono", monospace',
+    },
+  }
   return (
-    <div className="rounded-lg overflow-hidden">
-      <Editor
-        className="monaco-editor"
-        height={pythonCode.split("\n").length * 21 + "px"}
-        defaultLanguage="python"
-        theme="vs-dark"
-        defaultValue={pythonCode}
-        options={{
-          readOnly: true,
-          minimap: { enabled: false },
-          scrollbar: { vertical: "hidden", alwaysConsumeMouseWheel: false },
-          scrollBeyondLastLine: false,
-          fontSize: 14,
-        }}
-      />
+    <div className="p-2 outline outline-[#333] rounded-lg">
+      <SyntaxHighlighter language="python" style={customStyle}>
+        {pythonCode}
+      </SyntaxHighlighter>
     </div>
   )
 }

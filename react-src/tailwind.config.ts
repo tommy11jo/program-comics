@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         comic: ["Comic Neue", "cursive"],
+        code: ["Roboto Mono", "monospace"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

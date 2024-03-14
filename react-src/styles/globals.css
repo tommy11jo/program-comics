@@ -102,6 +102,9 @@ code {
   font-family: "Roboto Mono", monospace;
   white-space: pre-wrap;
 }
+.code-editor {
+  @apply font-code;
+}
 
 hr {
   border-color: white;

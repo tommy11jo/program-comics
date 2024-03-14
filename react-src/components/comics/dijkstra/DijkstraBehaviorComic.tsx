@@ -16,7 +16,7 @@ const DijkstraBehaviorComic = () => {
   const _ignoreFirstImage = nextImage()
 
   const row1 = (
-    <div className="flex flex-row gap-4 items-center">
+    <div className="flex flex-row gap-4 items-center pb-4 border-b border-white">
       {<img src={`/graphics/dijkstra/lambda.png`} width={"60px"} />}
       <div>{introText}</div>
     </div>
@@ -138,6 +138,6 @@ const DijkstraBehaviorComic = () => {
       ]}
     />
   )
-  return <Column comps={[row1, <hr />, row2, row3, row4, row5, row6]} />
+  return <Column comps={[row1, row2, row3, row4, row5, row6]} />
 }
 export default DijkstraBehaviorComic

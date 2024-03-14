@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="/eyes32.png" />
       </Head>
       <div className="flex flex-col min-h-screen">
         <header className="p-4 text-left m-0 flex justify-between">
