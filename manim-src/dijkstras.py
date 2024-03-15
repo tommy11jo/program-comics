@@ -236,6 +236,7 @@ class WeightedDiGraph(DiGraph):
         self.dist_labels[node] = dist_label
 
     def update_dist_label(self, node, dist, prev_dist, color=RED):
+        z_index_below, z_index_above = 20, 21
         dist_text = "∞" if dist == float("inf") else str(dist)
         prev_dist_text = "∞" if prev_dist == float("inf") else str(prev_dist)
         new_text = Text(
@@ -246,10 +247,18 @@ class WeightedDiGraph(DiGraph):
         )
         new_text.next_to(old_text, LEFT, buff=0.2)
 
-        text = VGroup(new_text, old_text)
+        text = VGroup(new_text, old_text).set_z_index(z_index_above)
         self.no_overlap_next_to(text, self.vertices[node], LEFT)
 
-        box = SurroundingRectangle(text, color=color, buff=0.1, corner_radius=0.1)
+        box = SurroundingRectangle(
+            text,
+            color=color,
+            fill_color=config.background_color,
+            fill_opacity=1.0,
+            z_index=z_index_below,
+            buff=0.1,
+            corner_radius=0.1,
+        )
 
         start_point = old_text.get_corner(UP + LEFT)
         end_point = old_text.get_corner(DOWN + RIGHT)

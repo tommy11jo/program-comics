@@ -1,6 +1,6 @@
 from manim import *
 from dijkstras import WeightedDiGraph
-from typing import Hashable, Tuple
+from typing import Hashable, Tuple, Literal
 import heapq
 
 START_COLOR = GREEN
@@ -44,6 +44,20 @@ GRAPH2 = {
 START2 = 0
 END2 = 7
 
+# swap 2 weights in GRAPH2 to show how best dist already explored but we keep going
+GRAPH3 = {
+    0: [(1, 7), (2, 1), (4, 1)],
+    1: [(6, 2)],
+    2: [(3, 3), (4, 2)],
+    3: [(5, 4)],
+    4: [(5, 6)],
+    5: [(7, 1)],
+    6: [(7, 100)],
+    7: [],
+}
+START3 = 0
+END3 = 7
+
 config.frame_size = (1600, 1200)
 
 
@@ -64,7 +78,7 @@ class StatefulWeightedDiGraph(WeightedDiGraph):
         if text is None:
             text = "Insert (0, start) into priority queue PQ.\n"
             text += "Repeat: Remove best vertex v from PQ, and relax all edges pointing from v.\n"
-            text += "- Update PQ, dist_to, and prev during relaxation"
+            text += "- Update PQ, distances, and prev during relaxation"
         text_obj = Text(text, font_size=font_size)
         vertices = VGroup(*self.vertices.values())
         text_obj.next_to(vertices, UP, buff=0.5).to_edge(LEFT, buff=0.5)
@@ -75,7 +89,7 @@ class StatefulWeightedDiGraph(WeightedDiGraph):
         pq.sort()
         if self.fringe:
             self.remove(self.fringe)
-        fringe_group = VGroup(Text("Fringe: ", font_size=self.label_font_size))
+        fringe_group = VGroup(Text("PQ: ", font_size=self.label_font_size))
         fringe_elements = {}
         for key, value in pq:
             key_value_text = Text(f"{key}: {value}", font_size=self.label_font_size)
@@ -96,20 +110,20 @@ class StatefulWeightedDiGraph(WeightedDiGraph):
             fringe_elements  # used for drawing rect on dist label update
         )
 
-    def show_state_table(self, dist_to, prev):
+    def show_state_table(self, distances, prev):
         if self.table_of_state_vars:
             self.remove(self.table_of_state_vars)
 
         headers = [
-            Text(x, font_size=self.label_font_size) for x in ["#", "dist_to", "prev"]
+            Text(x, font_size=self.label_font_size) for x in ["#", "distances", "prev"]
         ]
         rows = [
             [
                 str(node),
-                "∞" if dist_to[node] == float("inf") else str(dist_to[node]),
+                "∞" if distances[node] == float("inf") else str(distances[node]),
                 str(prev.get(node, "-")),
             ]
-            for node in dist_to
+            for node in distances
         ]
 
         table = Table(
@@ -129,7 +143,7 @@ class StatefulWeightedDiGraph(WeightedDiGraph):
 
     def box_state_var(self, node, col, color=RED):
         # oddly the col indices go backwards
-        assert 1 <= col <= 3, "col must be 1 (#), 2 (dist_to), or 3 (prev)"
+        assert 1 <= col <= 3, "col must be 1 (#), 2 (distances), or 3 (prev)"
 
         # +2 = +1 for header +1 as weird workaround for avoiding last element
         dist_cell_to_focus = self.table_of_state_vars.get_entries_without_labels(
@@ -140,9 +154,17 @@ class StatefulWeightedDiGraph(WeightedDiGraph):
         )
         self.state_var_boxes.add(table_box)
 
-    def box_fringe_var(self, node, color=RED):
+    def box_fringe_var(
+        self, node, color=RED, style: Literal["outline", "fill"] = "outline"
+    ):
         fringe_box = SurroundingRectangle(
-            self.fringe_elements[node], color=color, buff=0.1, corner_radius=0.1
+            self.fringe_elements[node],
+            color=color,
+            stroke_opacity=0 if style == "fill" else 1,
+            fill_color=color,
+            fill_opacity=0.7 if style == "fill" else 0,
+            buff=0.1,
+            corner_radius=0.1,
         )
         self.state_var_boxes.add(fringe_box)
 
@@ -183,20 +205,60 @@ class ShortestPath(MovingCameraScene):
     def construct(self):
         # shortest path from start to end of graph
         # returns distance and path
-        def dijkstra(
+        def shortest_path_start_to_end(
             graph: Dict[int, List[Tuple[int, int]]],
             vgraph: StatefulWeightedDiGraph,
             start: int,
             end: int,
+        ):
+
+            distances, prev_vertex = shortest_path_helper(graph, vgraph, start, end)
+            if distances[end] == float("inf"):
+                return -1, []
+
+            path = []
+            node = end
+            # vgraph.show_explanation(
+            #     text="Now, follow the edges backwards, from goal to start"
+            # )
+            while node != start:
+                path.append(node)
+                prev = node  # used for tracking
+                node = prev_vertex[node]
+                vgraph.highlight_node(prev, color=FOCUS_COLOR, opacity=1.0)
+                vgraph.highlight_edge(node, prev, color=FOCUS_COLOR, opacity=1.0)
+                vgraph.box_state_var(prev, 3)
+                self.capture()
+                vgraph.highlight_node(prev, color=FOCUS_COLOR)
+                vgraph.highlight_edge(node, prev, color=FOCUS_COLOR)
+                vgraph.undo_all_box_state_vars()
+            path.append(start)
+            path.reverse()
+            vgraph.highlight_node(node, color=FOCUS_COLOR, opacity=1.0)
+            # vgraph.show_explanation(
+            #     f"The shortest path is {path} with distance {distances[end]}."
+            # )
+            self.capture()
+            return distances[end], path
+
+        # computes dijkstras shortest paths from start
+        # if end is not None, then stop when the end is reached
+        # returns (distances, prev_nodes)
+        def shortest_path_helper(
+            graph: Dict[int, List[Tuple[int, int]]],
+            vgraph: StatefulWeightedDiGraph,
+            start: int,
+            end: int | None = None,
         ) -> Tuple[float, List[int]]:
             distances = {node: float("inf") for node in graph}
             distances[start] = 0
             pq = [(0, start)]
-            prev_node = {}
-            reached = False
+            prev_vertex = {}
 
-            vgraph.show_explanation()
-            vgraph.show_state_table(distances, prev_node)
+            # for color tracking of dist values
+            visited = set([start])
+            # vgraph.show_explanation()
+            vgraph.show_state_table(distances, prev_vertex)
             new_pos = vgraph.get_center()
             self.camera.frame.shift(new_pos)
             scalar = 1.2
@@ -208,18 +270,19 @@ class ShortestPath(MovingCameraScene):
                 vgraph.show_fringe(pq)
                 cur_dist, cur_node = heapq.heappop(pq)
                 # step 1: show node being processed
+                visited.add(cur_node)
                 vgraph.show_dist_label(cur_node, cur_dist)
                 vgraph.highlight_node(cur_node, color=FOCUS_COLOR, opacity=1.0)
 
                 if cur_dist > distances[cur_node]:
                     continue
-                if cur_node == end:
-                    reached = True
-                    self.capture()
-                    vgraph.highlight_node(cur_node)
-                    break
 
-                vgraph.box_fringe_var(cur_node, color=GREEN)
+                # if end exists, stop when it is explored
+                if end is not None and cur_node == end:
+                    self.capture()
+                    return distances, prev_vertex
+
+                vgraph.box_fringe_var(cur_node, style="fill")
                 self.capture()
                 vgraph.undo_all_box_state_vars()
                 # step 2: show relaxation of edges
@@ -234,14 +297,15 @@ class ShortestPath(MovingCameraScene):
                     prev_neighbor_dist = distances[neighbor]  # used for tracking
                     if distance < distances[neighbor]:
                         distances[neighbor] = distance
-                        prev_node[neighbor] = cur_node
+                        prev_vertex[neighbor] = cur_node
                         heapq.heappush(pq, (distance, neighbor))
-                        vgraph.highlight_edge(cur_node, neighbor, opacity=1.0)
-                        vgraph.update_dist_label(
-                            neighbor, distance, prev_neighbor_dist, next(circle_colors)
-                        )
 
                         col = next(circle_colors)
+                        vgraph.highlight_edge(cur_node, neighbor, opacity=1.0)
+                        vgraph.update_dist_label(
+                            neighbor, distance, prev_neighbor_dist, col
+                        )
+
                         fringe_box_args_lst.append((neighbor, col))
                         box_state_var_args_lst.append((neighbor, 2, col))
                         box_state_var_args_lst.append((neighbor, 3, col))
@@ -252,10 +316,16 @@ class ShortestPath(MovingCameraScene):
                         )
 
                     _highlight_edge_args_lst.append((cur_node, neighbor, GREEN))
-                    _dist_label_args_lst.append((neighbor, distance, BEST_SO_FAR_COLOR))
+                    _dist_label_args_lst.append(
+                        (
+                            neighbor,
+                            distances[neighbor],
+                            RED if neighbor in visited else BEST_SO_FAR_COLOR,
+                        )
+                    )
 
                 vgraph.show_fringe(pq)
-                vgraph.show_state_table(distances, prev_node)
+                vgraph.show_state_table(distances, prev_vertex)
                 for args in box_state_var_args_lst:
                     vgraph.box_state_var(*args)
                 for args in fringe_box_args_lst:
@@ -269,41 +339,25 @@ class ShortestPath(MovingCameraScene):
                 for args in _highlight_edge_args_lst:
                     vgraph.highlight_edge(*args)
 
-            if reached:
-                path = []
-                node = end
-                vgraph.show_explanation(
-                    text="Now, follow the edges backwards, from goal to start"
-                )
-                while node != start:
-                    path.append(node)
-                    prev = node  # used for tracking
-                    node = prev_node[node]
-                    vgraph.highlight_node(prev, color=FOCUS_COLOR, opacity=1.0)
-                    vgraph.highlight_edge(node, prev, color=FOCUS_COLOR, opacity=1.0)
-                    vgraph.box_state_var(prev, 3)
-                    self.capture()
-                    vgraph.highlight_node(prev, color=FOCUS_COLOR)
-                    vgraph.highlight_edge(node, prev, color=FOCUS_COLOR)
-                    vgraph.undo_all_box_state_vars()
-                path.append(start)
-                path.reverse()
-                vgraph.highlight_node(node, color=FOCUS_COLOR, opacity=1.0)
-                vgraph.show_explanation(
-                    f"The shortest path is {path} with distance {distances[end]}."
-                )
-                self.capture()
-                return distances[end], path
-            return float("inf"), []
+            self.capture()
+            return distances, prev_vertex
 
         # file_suffix = 1
         # graph, start, end = GRAPH1, START1, END1
-        file_suffix = 2
-        graph, start, end = GRAPH2, START2, END2
+        # file_suffix = 2
+        # graph, start, end = GRAPH2, START2, END2
+
+        file_suffix = 3
+        graph, start, end = GRAPH3, START3, END3
         self.set_file_suffix(file_suffix)
         vertices, edges = ShortestPath.convert_graph_to_digraph_format(graph)
-        vgraph = StatefulWeightedDiGraph(vertices, edges, start=start, end=end)
-        self.add(vgraph)
+        # vgraph = StatefulWeightedDiGraph(vertices, edges, start=start, end=end)
+        # self.add(vgraph)
+        # visualize shortest path from start to end
+        # dist, path = shortest_path_start_to_end(graph, vgraph, start, end)
+        # print(dist, path)
 
-        dist, path = dijkstra(graph, vgraph, start, end)
-        print(dist, path)
+        # visualize shortest path from start to all other vertices (well not the paths but the creation of state vars that can yield the paths)
+        vgraph = StatefulWeightedDiGraph(vertices, edges, start=start)
+        self.add(vgraph)
+        dist, path = shortest_path_helper(graph, vgraph, start)
