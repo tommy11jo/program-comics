@@ -12,7 +12,7 @@ const DijkstraBehaviorComic = () => {
     return <img src={`${folder}/step${imageIndex.current++}.png`} />
   }
   const introText =
-    "Welcome! We're going to apply Dijkstra's to find the shortest path from the start vertex to the end vertex of a directed graph (meaning edges have direction) with non-negative weights. You can also think of this as finding the shortest driving directions on a map, where each edge is a one-way street and each edge weight is the distance (or time) to travel that street."
+    "Welcome! We're going to apply Dijkstra's to find the shortest path from the start vertex to the end vertex of a graph with non-negative weights. The graph below is a directed graph, meaning its edges have direction. You can also think of this as finding the shortest driving directions on a map, where each edge is a one-way street and each edge weight is the distance (or time) to travel that street."
   const _ignoreFirstImage = nextImage()
 
   const row1 = (
@@ -60,9 +60,9 @@ const DijkstraBehaviorComic = () => {
           label={
             <span>
               Explore vertex 2 because it has the smallest best distance so far
-              among the unexplored vertexs. Vertex 2’s distance value of 1 is
+              among the unexplored vertices. Vertex 2’s distance value of 1 is
               less than vertex 1’s distance value of 2 and all the other
-              vertexs’ distance values of infinity.
+              vertices’ distance values of infinity.
             </span>
           }
         />,
@@ -78,7 +78,7 @@ const DijkstraBehaviorComic = () => {
       comps={[
         <Row
           label="Explore vertex 1 because it has the smallest best distance so far
-              among the unexplored vertexs. And relax the edges."
+              among the unexplored vertices. And relax the edges."
           comps={[<Panel panel={nextImage()} />, <Panel panel={nextImage()} />]}
         />,
         <Row
@@ -138,6 +138,6 @@ const DijkstraBehaviorComic = () => {
       ]}
     />
   )
-  return <Column comps={[row1, row2, row3, row4, row5, row6]} />
+  return <Column comps={[<br />, row1, row2, row3, row4, row5, row6]} />
 }
 export default DijkstraBehaviorComic

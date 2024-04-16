@@ -8,8 +8,6 @@ The diagrams are programmed using [Manim](https://github.com/3b1b/manim), a math
 
 I'm also working on creating a variant of manim designed for still pictures, [still-manim](https://github.com/tommy11jo/still-manim), which you can try in the [still-manim web editor](https://still-manim-editor.vercel.app/).
 
-See the [about page](https://programcomics.com/about) for some speculation on where this might go.
-
 ### Concept Review Pages
 
 - [Dijkstra's](https://programcomics.com/dijkstras-review)
